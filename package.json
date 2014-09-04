@@ -1,0 +1,37 @@
+{
+  "name": "OnCallEscalationManager",
+  "version": "0.0.1",
+  "author": "Sean Rycek, Shiv Patel, Dalton Shehan",
+  "description": "An application to handle the creation, configuration, and management of an automatic on call manager.",
+  "contributors": [
+    {
+      "name": "Sean Rycek",
+      "email": "smrycek@ncsu.edu"
+    },
+    {
+      "name": "Dalton Shehan",
+      "email": "ldshehan@ncsu.edu"
+    },
+    {
+      "name": "Shiv Patel",
+      "email": "shpatel5@ncsu.edu"
+    }
+  ],
+  "main": "./server.js",
+  "keywords": [
+    "azure",
+    "boilerplate",
+    "express"
+  ],
+  "dependencies": {
+    "mongoose": "~3.8.15",
+    "nconf": "~0.6.7",
+    "commander": "~2.3.0",
+    "promptly": "0.2.0"
+  },
+  "noAnalyze": true,
+  "license": "Apache",
+  "engines": {
+    "node": ">=0.6.14"
+  }
+}
