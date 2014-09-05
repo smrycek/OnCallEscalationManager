@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     nconf = require('nconf'),
-    promptly = require('promptly');
+    promptly = require('promptly')
 
 //NConf Configuration
 nconf.env().file({ file: 'settings.json' });
@@ -14,32 +14,58 @@ mongoose.connection.once('error', function() {
     //console.log("Database Error");
 });
 
-var name, phone, fallback;
 
-if (!name) {
-    promptly.prompt('Application Name: ', function (err, retName) {
-        name = retName;
-        if (!phone) {
-            promptly.prompt('Phone Number: ', { validator: PhoneValidator }, function (err, retPhone) {
-                phone = retPhone;
-                if (!fallback) {
-                    promptly.prompt('Fallback Number: ', { validator: PhoneValidator }, function (err, retFallback) {
-                        fallback = retFallback;
-                        if (name && phone && fallback) {
-                            //Add to database here. For now, we will simply print them.
-                            console.log(name + " - " + phone + " - " + fallback);
-                        }
-                    });
-                }
-            });
+function promptApplication(callback) {
+    var name, phone, fallback;
+    console.log("");
+    if (!name) {
+        promptly.prompt('Application Name: ', function (err, retName) {
+            name = retName;
+            if (!phone) {
+                promptly.prompt('Phone Number: ', { validator: PhoneValidator }, function (err, retPhone) {
+                    phone = retPhone;
+                    if (!fallback) {
+                        promptly.prompt('Fallback Number: ', { validator: PhoneValidator }, function (err, retFallback) {
+                            fallback = retFallback;
+                            if (name && phone && fallback) {
+                                callback(name, phone, fallback);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    var PhoneValidator = function (value) {
+        var pattern = /^\d{3}-\d{3}-\d{4}/;
+        if (!pattern.test(value)) {
+            throw new Error('Phone number must be in the form:\n###-###-####');
         }
-    });
+        return value;
+    };
 }
 
-var PhoneValidator = function (value) {
-    var pattern = /^\d{3}-\d{3}-\d{4}/;
-    if (!pattern.test(value)) {
-        throw new Error('Phone number must be in the form:\n###-###-####');
-    }
-    return value;
-};
+function promptAction() {
+    promptly.prompt("Enter Action: ", function (err, input) {
+        if (input.toLowerCase() == 'add') {
+            promptApplication(function (name, phone, fallback) {
+                console.log(name + " - " + phone + " - " + fallback);
+                promptAction();
+            });
+        } else {
+            promptAction();
+        }
+
+    });
+} 
+
+
+console.log("On Call Escalation Manager Started");
+console.log("----------------------------------")
+console.log("Twilio Service is Listening...");
+console.log("");
+console.log("To add a new application to the database, enter 'add'");
+console.log("");
+
+promptAction();
