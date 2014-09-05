@@ -34,7 +34,7 @@ function promptApplication(callback) {
                                     fallbackNumber = retFallback;
                                     if (name && phone && fallbackName && fallbackNumber) {
                                         console.log("");
-                                        callback(name, phone, fallbackName, fallbackNumber);
+                                        callback(name, phone, fallbackName, fallbackNumber, promptAction);
                                     }
                                 });
                             }
@@ -66,11 +66,7 @@ function promptApplication(callback) {
 function promptAction() {
     promptly.prompt("Enter Action: ", function (err, input) {
         if (input.toLowerCase() == 'add') {
-            promptApplication(function (name, phone, fallbackName, fallbackPhone) {
-                console.log(name + " - " + phone + " - " + fallbackName + " - " + fallbackPhone);
-                console.log("");
-                promptAction();
-            });
+            promptApplication(addApplication);
         } else if (input.toLowerCase() == 'exit') {
             process.exit();
         } else {
@@ -79,6 +75,29 @@ function promptAction() {
 
     });
 } 
+
+function addApplication(name, phone, fallbackName, fallbackPhone, callback) {
+    var applicationController = require('./lib/controllers/ApplicationController.js'),
+        staffController = require('./lib/controllers/StaffController.js');
+
+    applicationController.add(name, phone, function (err, doc) {
+        if (err) {
+            console.log("Error adding application " + name);
+            console.log("");
+            callback();
+        } else {
+            staffController.add(fallbackName, fallbackPhone, true, doc._id, function (err, doc) {
+                if (err) {
+                    console.log("Error adding fallback staff member " + fallbackName);
+                } else {
+                    console.log("Successfully added " + name + " with fallback staffer " + fallbackName);
+                }
+                console.log("");
+                callback();
+            });
+        }
+    });
+}
 
 
 console.log("");
