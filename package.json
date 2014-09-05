@@ -33,5 +33,8 @@
   "license": "Apache",
   "engines": {
     "node": ">=0.6.14"
+  },
+  "scripts": {
+    "test": "make test"
   }
 }
