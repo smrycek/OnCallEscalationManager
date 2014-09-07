@@ -39,7 +39,7 @@
     "node": ">=0.6.14"
   },
   "scripts": {
-    "test": "make test",
+    "test": "mocha",
     "start": "node server.js"
   }
 }
