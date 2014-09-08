@@ -1,2 +1,4 @@
 --require should
---reporter dot
+--require chai
+--reporter spec
+--ui bdd
