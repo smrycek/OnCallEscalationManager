@@ -34,7 +34,8 @@
     "jscoverage": "0.5.6",
     "twilio": "1.7.0",
     "express": "~3.1.0",
-    "underscore": "1.7.0"
+    "underscore": "1.7.0",
+    "scmp": "0.0.3"
   },
   "noAnalyze": true,
   "license": "Apache",
