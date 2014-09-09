@@ -35,7 +35,10 @@
     "twilio": "1.7.0",
     "express": "~3.1.0",
     "underscore": "1.7.0",
-    "scmp": "0.0.3"
+    "scmp": "0.0.3",
+    "q": "0.9.7",
+    "jwt-simple": "0.1.x",
+    "request": "2.27.x"
   },
   "noAnalyze": true,
   "license": "Apache",
