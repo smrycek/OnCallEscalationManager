@@ -143,4 +143,4 @@ console.log("To add a new application to the database, enter 'add'");
 console.log("To exit the application, enter 'exit'");
 console.log("");
 
-//promptAction();
+promptAction();
