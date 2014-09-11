@@ -1,6 +1,5 @@
-var Incoming = require('../lib/twilio/Incoming.js')
+var twilioHandler = require('../lib/handlers/TwilioHandler.js')
 
 module.exports = function (app) {
-    app.post('/calls/incoming', Incoming.handleIncoming);
-    app.get('/calls/incoming', Incoming.handleIncoming);
+    app.post('/calls/incoming', twilioHandler.handleIncoming);
 };

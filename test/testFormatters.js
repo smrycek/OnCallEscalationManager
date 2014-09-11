@@ -6,11 +6,9 @@ describe('PhoneFormatter', function () {
         var phoneFormatter = require('../lib/formatters/PhoneFormatter.js');
 
         it('should convert a US phone number from twilio\'s format to a database compatible one. (+19194913313 -> 919-491-3313)', function (done) {
-            phoneFormatter.twilioToDatabase('+19194913313', function (databasePhone) {
-                should.exist(databasePhone);
-                databasePhone.should.equal('919-491-3313');
-                done();
-            });
+            var databasePhone = phoneFormatter.twilioToDatabase('+19194913313');
+            databasePhone.should.equal('919-491-3313');
+            done();
         });
     });
 });

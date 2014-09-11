@@ -14,6 +14,8 @@ describe('ApplicationController', function () {
             done();
         });
     });
+
+
     describe('#add()', function () {
         var applicationController = require('../lib/controllers/ApplicationController.js');
         var Application = require('../lib/models/Application.js');
