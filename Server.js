@@ -20,7 +20,6 @@ mongoose.connection.once('error', function() {
 
 //Create Twilio Instance
 var twilio = require('twilio')(nconf.get("twilio:AccountSID"), nconf.get("twilio:AuthToken"));
-global.twilio = twilio;
 
 
 //Server Creation
