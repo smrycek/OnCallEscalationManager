@@ -6,5 +6,8 @@
   "twilio": {
     "AccountSID": "AC8268d4c975177dbecd44f9e974afb62a",
     "AuthToken": "8150fbe1cd46ce1474f0ec338938f484"
+  },
+  "host": {
+    "headURL": "http://on-call-escalation-manager.herokuapp.com"
   }
 }
