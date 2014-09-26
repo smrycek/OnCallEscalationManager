@@ -58,6 +58,47 @@ describe('PhoneValidator: ', function () {
 
 });
 
+describe('StaffValidator', function () {
+    var staffValidator = require('../lib/validators/StaffValidator');
+    //Test data
+    var validStaff = new Object();
+    validStaff.Name = "Dalton";
+    validStaff.Phone = "(111) 111-1111";
+
+    var noName = new Object();
+    noName.Phone = "(111) 111-1111";
+
+    var badName = new Object();
+    badName.Name = "";
+    badName.phone = "(111) 111-1111";
+
+    describe('the staffValidator', function () {
+        it('should be valid.', function (done) {
+            staffValidator.validateStaff(validStaff, function (err, staff) {
+                //check that there is an error
+                should.not.exist(err);
+                should.exist(staff);
+                staff.should.be.an('object');
+                done();
+            });
+        });
+        it('should not be valid.', function () {
+            staffValidator.validateStaff(noName, function (err, staff) {
+                //check that there is an error
+                should.exist(err);
+                should.exist(staff);
+                staff.should.be.an('object');
+            });
+            staffValidator.validateStaff(badName, function (err, staff) {
+                //check that there is an error
+                should.exist(err);
+                should.exist(staff);
+                staff.should.be.an('object');
+            });
+        });
+    });
+});
+
 describe('ApplicationValidator', function () {
 
     var applicationValidator = require('../lib/validators/ApplicationValidator.js'),
@@ -85,7 +126,7 @@ describe('ApplicationValidator', function () {
         nconf.env().file({ file: 'settings.json' });
 
         //Mongoose Configuration
-        mongoose.connect('mongodb://' + nconf.get('database:db_user') + ':' + nconf.get('database:db_pass') + '@kahana.mongohq.com:10070/app28953073');
+        mongoose.connect('mongodb://' + nconf.get('testdatabase:db_user') + ':' + nconf.get('testdatabase:db_pass') + '@kahana.mongohq.com:10070/app28953073');
         mongoose.connection.once('connected', function () {
             applicationController.add(goodCase, function (err, doc) {
                 done();
