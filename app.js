@@ -15,7 +15,7 @@ app.configure(function(){
   app.use(express.json());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'html/includes')));
   app.engine('html', require('ejs').renderFile);
 });
 
