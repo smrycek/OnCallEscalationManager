@@ -26,5 +26,6 @@ app.configure('development', function(){
 require('./routes/twilio.js')(app);
 require('./routes/Application.js')(app);
 require('./routes/Staff.js')(app);
+require('./routes/Gui.js')(app);
 
 module.exports = app;
