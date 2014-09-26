@@ -15,6 +15,10 @@ describe('ApplicationController', function () {
         });
     });
 
+    after(function (done) {
+        mongoose.disconnect();
+        done();
+    });
 
     describe('#add()', function () {
         var applicationController = require('../lib/controllers/ApplicationController.js');
