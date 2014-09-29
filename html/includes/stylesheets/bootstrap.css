@@ -4097,12 +4097,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #D1D1D1;
 }
 .navbar-default .navbar-brand {
-  text-transform: uppercase;
-  color: #428bca;
+  color: #333;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #428bca;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
