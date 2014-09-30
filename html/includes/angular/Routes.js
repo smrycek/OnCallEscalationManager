@@ -2,7 +2,9 @@ var OCEM = angular.module('OnCallEscalationManager', []);
 
 OCEM.controller('index', ['$scope','$http', indexCtrl]);
 
-function indexCtrl($scope, $http) { 
+function indexCtrl($scope, $http) {
+    $scope.colorCount = 5;
+
     $scope.method = 'GET';
     $scope.url = '/api/applications/';
     $http({method: $scope.method, url: $scope.url}).
