@@ -9,101 +9,100 @@ block content
             h1.page-header Applications
         //-- end .col-lg-12 --
     //-- end .row --
-    div.row
-        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            div.panel.panel-red
-                div.panel-heading
-                    div.row
-                        div.col-xs-2.col-sm-1
-                            i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
-                            div.medium Application Name
-                            div.medium-small (919) 491-3313
-                        div.col-xs-3.text-right
-                            div.huge 26
-                            div Staff Members
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix
-    div.row
-        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            div.panel.panel-purple
-                div.panel-heading
-                    div.row
-                        div.col-xs-2.col-sm-1
-                            i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
-                            div.medium Application Name
-                            div.medium-small (919) 491-3313
-                        div.col-xs-3.text-right
-                            div.huge 26
-                            div Staff Members
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix
-    div.row
-        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            div.panel.panel-blue
-                div.panel-heading
-                    div.row
-                        div.col-xs-2.col-sm-1
-                            i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
-                            div.medium Application Name
-                            div.medium-small (919) 491-3313
-                        div.col-xs-3.text-right
-                            div.huge 26
-                            div Staff Members
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix
-    div.row
-        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            div.panel.panel-green
-                div.panel-heading
-                    div.row
-                        div.col-xs-2.col-sm-1
-                            i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
-                            div.medium Application Name
-                            div.medium-small (919) 491-3313
-                        div.col-xs-3.text-right
-                            div.huge 26
-                            div Staff Members
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix
-    div.row
-        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            div.panel.panel-yellow
-                div.panel-heading
-                    div.row
-                        div.col-xs-2.col-sm-1
-                            i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
-                            div.medium Application Name
-                            div.medium-small (919) 491-3313
-                        div.col-xs-3.text-right
-                            div.huge 26
-                            div Staff Members
-                a(href="#")
-                    div.panel-footer
-                        span.pull-left View Details
-                        span.pull-right
-                            i.fa.fa-arrow-circle-right
-                        div.clearfix
     div(ng-Controller="index")
-        p {{test}}
+        div.row(ng-repeat="app in apps")
+            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+                div.panel.panel-red
+                    div.panel-heading
+                        div.row
+                            div.col-xs-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-8.left-gap
+                                div.medium {{app.Name}}
+                                div.medium-small {{app.Phone}}
+                            div.col-xs-3.text-right
+                                div.huge {{app.Staff.length}}
+                                div Staff Members
+                    a(href="/applications/{{app.Name}}")
+                        div.panel-footer
+                            span.pull-left View Details
+                            span.pull-right
+                                i.fa.fa-arrow-circle-right
+                            div.clearfix
+        div.row
+            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+                div.panel.panel-purple
+                    div.panel-heading
+                        div.row
+                            div.col-xs-2.col-sm-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-7.col-sm-8.left-gap
+                                div.medium Application Name
+                                div.medium-small (919) 491-3313
+                            div.col-xs-3.text-right
+                                div.huge 26
+                                div Staff Members
+                    a(href="#")
+                        div.panel-footer
+                            span.pull-left View Details
+                            span.pull-right
+                                i.fa.fa-arrow-circle-right
+                            div.clearfix
+        div.row
+            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+                div.panel.panel-blue
+                    div.panel-heading
+                        div.row
+                            div.col-xs-2.col-sm-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-7.col-sm-8.left-gap
+                                div.medium Application Name
+                                div.medium-small (919) 491-3313
+                            div.col-xs-3.text-right
+                                div.huge 26
+                                div Staff Members
+                    a(href="#")
+                        div.panel-footer
+                            span.pull-left View Details
+                            span.pull-right
+                                i.fa.fa-arrow-circle-right
+                            div.clearfix
+        div.row
+            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+                div.panel.panel-green
+                    div.panel-heading
+                        div.row
+                            div.col-xs-2.col-sm-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-7.col-sm-8.left-gap
+                                div.medium Application Name
+                                div.medium-small (919) 491-3313
+                            div.col-xs-3.text-right
+                                div.huge 26
+                                div Staff Members
+                    a(href="#")
+                        div.panel-footer
+                            span.pull-left View Details
+                            span.pull-right
+                                i.fa.fa-arrow-circle-right
+                            div.clearfix
+        div.row
+            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+                div.panel.panel-yellow
+                    div.panel-heading
+                        div.row
+                            div.col-xs-2.col-sm-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-7.col-sm-8.left-gap
+                                div.medium Application Name
+                                div.medium-small (919) 491-3313
+                            div.col-xs-3.text-right
+                                div.huge 26
+                                div Staff Members
+                    a(href="#")
+                        div.panel-footer
+                            span.pull-left View Details
+                            span.pull-right
+                                i.fa.fa-arrow-circle-right
+                            div.clearfix
     //-- end .row --
