@@ -1,3 +1,4 @@
+block variables
 doctype html
 html(lang="en")
     head
@@ -7,7 +8,8 @@ html(lang="en")
         meta(name="description" content="")
         meta(name="author" content="")
 
-        Title On Call Escalation Manager
+        - var title = siteTitle || "On Call Escalation Manager"
+        title #{title}
 
         //-- Bootstrap Core CSS --
         link(href="/stylesheets/bootstrap.css", rel="stylesheet")
@@ -32,7 +34,7 @@ html(lang="en")
             //-- Navigation --
             nav.navbar.navbar-default.navbar-static-top(role="navigation", style="margin-bottom: 0")
                 div.navbar-header
-                    a.navbar-brand(href="/") On Call Escalation Manager
+                    a.navbar-brand(href="/") #{title}
                 //-- end .navbar-header --
 
                 //Not using navbar links for now
