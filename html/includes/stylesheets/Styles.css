@@ -1,0 +1,18 @@
+@font-face {
+    font-family: Avenir Next;
+    src: url("/fonts/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Avenir;
+    src: url("/fonts/AvenirLTStd-Book.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Avenir Light;
+    src: url("/fonts/AvenirLTStd-Light.otf") format("opentype");
+}
+
+.iconImage {
+    margin-right:  15px;
+}
