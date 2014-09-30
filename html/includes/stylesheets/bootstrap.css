@@ -5212,22 +5212,22 @@ a.list-group-item-danger.active:focus {
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #ddd;
 }
-.panel-primary {
+.panel-blue {
   border-color: #63B1E5;
 }
-.panel-primary > .panel-heading {
+.panel-blue > .panel-heading {
   color: #fff;
   background-color: #63B1E5;
   border-color: #63B1E5;
 }
-.panel-primary > .panel-heading + .panel-collapse > .panel-body {
+.panel-blue > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #63B1E5;
 }
-.panel-primary > .panel-heading .badge {
+.panel-blue > .panel-heading .badge {
   color: #63B1E5;
   background-color: #fff;
 }
-.panel-primary > .panel-footer + .panel-collapse > .panel-body {
+.panel-blue > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #63B1E5;
 }
 .panel-success {
