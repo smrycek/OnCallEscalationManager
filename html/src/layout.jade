@@ -29,7 +29,11 @@ html(lang="en")
         //-- Custom Fonts --
         link(href="/font-awesome-4.1.0/css/font-awesome.min.css", rel="stylesheet", type="text/css")
 
-    body
+        //Angular
+        script(src="/scripts/angular.min.js")
+        script(src="/angular/Routes.js")
+
+    body(ng-app="OnCallEscalator")
         div#wrapper
             //-- Navigation --
             nav.navbar.navbar-default.navbar-static-top(role="navigation", style="margin-bottom: 0")
