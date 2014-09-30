@@ -290,6 +290,18 @@ table.dataTable thead .sorting:after {
     font-size: 40px;
 }
 
+.medium {
+    font-size: 20px;
+}
+
+.medium-small {
+    font-size:  16px;
+}
+
+.left-gap {
+    padding-left:  30px;
+}
+
 .panel-green {
     border-color: #00AF3F;
 }
