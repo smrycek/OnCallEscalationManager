@@ -29,6 +29,7 @@ html(lang="en")
 
         //Angular
         script(src="/scripts/angular.min.js")
+        script(src="/scripts/angular-route.min.js")
         script(src="/angular/Routes.js")
 
     body(ng-app="OnCallEscalationManager")
@@ -198,7 +199,7 @@ html(lang="en")
                     //-- end .navbar-top-links --
 
             div#page-wrapper
-                block content
+                ng-view
 
 
             //-- end #page-wrapper --
