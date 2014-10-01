@@ -1,15 +1,37 @@
 
 div.row
     div.col-lg-12
-        h2.page-header Application Details
+        h2.page-header {{app.Name}}'s Details
     //-- end .col-lg-12 --
 //-- end .row --
 div
-    div
-        h3 {{app.Name}}
-        p Escaltion Number: {{app.Phone}}
-        p FallBack: {{app.Fallback.Name}} Phone: {{app.Fallback.Primary}}
+    div.row
+        div.col-xs-8
+            div.panel.panel-default
+                div.panel-heading Application Details
+                div.panel-body
+                    div.row
+                        div.col-xs-2 Escalation Number:
+                        div.col-xs-4 {{app.Phone}}
+                    div.row
+                        div.col-xs-2 Fallback Staffer: 
+                        div.col-xs-4
+                            div.row
+                                br
+                                div.col-xs-2 Name: 
+                                div.col-xs-10 {{app.Fallback.Name}}
+                                div.col-xs-2 Phone: 
+                                div.col-xs-10 {{app.Fallback.Primary}}
     hr
-    div
-        div(ng-repeat="staff in app.Staff | orderBy:'Name'")
-            p Staff: {{staff.Name}} {{staff.Primary}}
+    div.row
+        div.col-xs-8
+            div.panel.panel-default
+                div.panel-heading Application Staff
+                div.panel-body
+                        div.row
+                            div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="staff in app.Staff | orderBy:'Name'")
+                                div.panel(ng-class="{'panel-red' : $index%5==0, 'panel-purple' : $index%5==1, 'panel-blue' : $index%5==2, 'panel-green' : $index%5==3, 'panel-yellow' : $index%5==4}")
+                                    div.panel-heading 
+                                        i.fa.fa-user.iconImage
+                                        | {{staff.Name}}
+                                    div.panel-body.center {{staff.Primary}}
