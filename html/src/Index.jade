@@ -1,32 +1,28 @@
-block variables
-    - var siteTitle = "On Call Escalation Manager - Applications";
 
-
-    div.row
-        div.col-lg-12
-            h2.page-header Applications
-        //-- end .col-lg-12 --
-    //-- end .row --
-    div
-        div {{params}}
-        div.row(ng-repeat="app in apps | orderBy:'Name'")
-            div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-                div.panel(ng-class="{'panel-red' : $index%colorCount==0, 'panel-purple' : $index%colorCount==1, 'panel-blue' : $index%colorCount==2, 'panel-green' : $index%colorCount==3, 'panel-yellow' : $index%colorCount==4}")
-                    div.panel-heading
-                        div.row
-                            div.col-xs-2.col-sm-1
-                                i.fa.fa-users.fa-5x
-                            div.col-xs-7.col-sm-8.left-gap
-                                div.medium {{app.Name}}
-                                div.medium-small {{app.Phone}}
-                            div.col-xs-3.text-right
-                                div.huge {{app.Staff.length}}
-                                div(ng-if="app.Staff.length > 1") Staff Members
-                                div(ng-if="app.Staff.length == 1") Staff Member
-                    a(href="/Applications/{{app.Name}}")
-                        div.panel-footer
-                            span.pull-left View Details
-                            span.pull-right
-                                i.fa.fa-arrow-circle-right
-                            div.clearfix
+div.row
+    div.col-lg-12
+        h2.page-header Applications
+    //-- end .col-lg-12 --
+//-- end .row --
+div
+    div.row(ng-repeat="app in apps | orderBy:'Name'")
+        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+            div.panel(ng-class="{'panel-red' : $index%colorCount==0, 'panel-purple' : $index%colorCount==1, 'panel-blue' : $index%colorCount==2, 'panel-green' : $index%colorCount==3, 'panel-yellow' : $index%colorCount==4}")
+                div.panel-heading
+                    div.row
+                        div.col-xs-2.col-sm-1
+                            i.fa.fa-users.fa-5x
+                        div.col-xs-7.col-sm-8.left-gap
+                            div.medium {{app.Name}}
+                            div.medium-small {{app.Phone}}
+                        div.col-xs-3.text-right
+                            div.huge {{app.Staff.length}}
+                            div(ng-if="app.Staff.length > 1") Staff Members
+                            div(ng-if="app.Staff.length == 1") Staff Member
+                a(href="/Applications/{{app.Name}}")
+                    div.panel-footer
+                        span.pull-left View Details
+                        span.pull-right
+                            i.fa.fa-arrow-circle-right
+                        div.clearfix
     //-- end .row --

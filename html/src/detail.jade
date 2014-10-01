@@ -1,0 +1,15 @@
+
+div.row
+    div.col-lg-12
+        h2.page-header Application Details
+    //-- end .col-lg-12 --
+//-- end .row --
+div
+    div
+        h3 {{app.Name}}
+        p Escaltion Number: {{app.Phone}}
+        p FallBack: {{app.Fallback.Name}} Phone: {{app.Fallback.Primary}}
+    hr
+    div
+        div(ng-repeat="staff in app.Staff | orderBy:'Name'")
+            p Staff: {{staff.Name}} {{staff.Primary}}

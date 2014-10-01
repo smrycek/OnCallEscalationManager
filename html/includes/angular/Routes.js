@@ -1,7 +1,7 @@
 var OCEM = angular.module('OnCallEscalationManager', ['ngRoute']);
 
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
-OCEM.controller('appCtlr', ['$scope','$http', '$routeParams', appCtrl]);
+OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -13,8 +13,8 @@ OCEM.config(['$routeProvider', '$locationProvider',
             controller: 'indexCtlr'
         })
         .when('/Applications/:appName', {
-            templateUrl: '/partials/Index.jade',
-            controller: 'appCtlr'
+            templateUrl: '/partials/detail.jade',
+            controller: 'detailCtlr'
         })
         .otherwise({
             redirectTo: '/'
@@ -38,20 +38,17 @@ function indexCtrl($scope, $http) {
     });
 };
 
-function appCtrl($scope, $http, $routeParams) {
-    $scope.params = $routeParams;
-
-    $scope.colorCount = 5;
+function detailCtrl($scope, $http, $routeParams) {
     $scope.method = 'GET';
-    $scope.url = '/api/applications/';
+    $scope.url = '/api/applications/' + $routeParams.appName;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
         $scope.status = status;
-        $scope.apps = data.results;
+        $scope.app = data.results;
     })
     .error(function(data, status) {
-        $scope.apps = data.results || "Request failed";
+        $scope.app = data.results || "Request failed";
         $scope.status = status;
     });
 };

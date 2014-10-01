@@ -1,10 +1,4 @@
 module.exports = function (app) {
-    /*app.get('/', function (req, res) {
-        res.render('Index');
-    });
-    app.get('/Applications/:appName', function (req, res) {
-        res.render('Index');
-    });*/
 
     app.get('/', function (req, res) {
         res.render('layout');
