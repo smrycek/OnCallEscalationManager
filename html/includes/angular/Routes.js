@@ -1,4 +1,4 @@
-var OCEM = angular.module('OnCallEscalationManager', ['ngRoute']);
+var OCEM = angular.module('OnCallEscalationManager', ['ngRoute', 'ui.bootstrap']);
 
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
@@ -27,6 +27,8 @@ function indexCtrl($scope, $http) {
     $scope.colorCount = 5;
     $scope.method = 'GET';
     $scope.url = '/api/applications/';
+
+    $scope.isCollapsed = false;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
