@@ -17,6 +17,29 @@
     margin-right:  15px;
 }
 
+
 .center {
     text-align: center;
+}
+
+.big-left-gap {
+    padding-left:  40px;
+}
+
+.BWGray {
+    color:  #ACACAF;
+}
+
+.page-header {
+    font-size:  32px;
+    margin-top:  20px;
+}
+
+.bigIcon {
+    font-size: 48px;
+}
+
+.bigIcon:hover {
+    color: #63B1E5;
+    cursor: pointer;
 }

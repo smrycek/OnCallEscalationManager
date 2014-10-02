@@ -1,7 +1,9 @@
 
 div.row
     div.col-lg-12
-        h2.page-header Applications
+        div.page-header Applications 
+            i.fa.fa-plus-square.BWGray.pull-right.bigIcon#addAppBtn
+            div.clearfix
     //-- end .col-lg-12 --
 //-- end .row --
 div
@@ -12,7 +14,7 @@ div
                     div.row
                         div.col-xs-2.col-sm-1
                             i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.left-gap
+                        div.col-xs-7.col-sm-8.big-left-gap
                             div.medium {{app.Name}}
                             div.medium-small {{app.Phone}}
                         div.col-xs-3.text-right
