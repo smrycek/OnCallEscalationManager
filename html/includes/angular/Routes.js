@@ -2,6 +2,7 @@ var OCEM = angular.module('OnCallEscalationManager', ['ngRoute']);
 
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
+OCEM.controller('newAppCtrl', ['$scope','$http', newAppCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -51,4 +52,8 @@ function detailCtrl($scope, $http, $routeParams) {
         $scope.app = data.results || "Request failed";
         $scope.status = status;
     });
+};
+
+function newAppCtrl($scope, $http) { 
+
 };

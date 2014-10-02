@@ -1,12 +1,31 @@
-
 div.row
     div.col-lg-12
         div.page-header Applications 
-            i.fa.fa-plus-square.BWGray.pull-right.bigIcon#addAppBtn
+            i.fa.fa-plus-square.BWGray.pull-right.bigIcon(ng-click="isCollapsed = !isCollapsed")
             div.clearfix
     //-- end .col-lg-12 --
 //-- end .row --
 div
+    div.row(collapse="isCollapsed")
+        div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
+            form(name="newApp", action="#", ng-controller="newAppCtrl")
+                div.panel.panel-gray
+                    div.panel-heading
+                        div.row
+                            div.col-xs-2.col-sm-1
+                                i.fa.fa-users.fa-5x
+                            div.col-xs-7.col-sm-8.left-gap
+                                div.medium Application Name: 
+                                    input(type="text", name="Name")
+                                div.medium-small Application Phone: 
+                                    input(type="text", name="Phone")
+                    div.panel-footer
+                        span.pull-left
+                            i.fa.fa-check.BWGray
+                        span.pull-right
+                            i.fa.fa-times.BWGray
+                        div.clearfix
+    //-- end .row --
     div.row(ng-repeat="app in apps | orderBy:'Name'")
         div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
             div.panel(ng-class="{'panel-red' : $index%colorCount==0, 'panel-purple' : $index%colorCount==1, 'panel-blue' : $index%colorCount==2, 'panel-green' : $index%colorCount==3, 'panel-yellow' : $index%colorCount==4}")
