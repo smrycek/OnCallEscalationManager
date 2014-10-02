@@ -28,7 +28,8 @@ function indexCtrl($scope, $http) {
     $scope.method = 'GET';
     $scope.url = '/api/applications/';
 
-    $scope.isCollapsed = false;
+    $scope.isCollapsed = true;
+    $scope.count = 0;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
