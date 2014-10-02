@@ -29,7 +29,7 @@ div
                 div.panel-heading Application Staff
                 div.panel-body
                         div.row
-                            div.col-xs-12.col-sm-4.col-lg-2(ng-repeat="staff in app.Staff | orderBy:'Name'")
+                            div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="staff in app.Staff | orderBy:'Name'")
                                 div.panel(ng-class="{'panel-red' : $index%5==0, 'panel-purple' : $index%5==1, 'panel-blue' : $index%5==2, 'panel-green' : $index%5==3, 'panel-yellow' : $index%5==4}")
                                     div.panel-heading 
                                         i.fa.fa-user.iconImage
