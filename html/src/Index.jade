@@ -24,7 +24,7 @@ div
                             div.col-xs-6.submitInPanel.BWGray.hoverBluePointer(style="padding: 0px;" ng-click="form.submit()")
                                 i.fa.fa-check
                                 span.small-left-gap Submit
-                            div.col-xs-6.cancelInPanel.BWGray.hoverBluePointer(style="padding: 0px;", ng-click="$parent.isCollapsed = !$parent.isCollapsed")
+                            div.col-xs-6.cancelInPanel.BWGray.hoverBluePointer(style="padding: 0px;", ng-click="form.empty(); $parent.isCollapsed = !$parent.isCollapsed")
                                 i.fa.fa-times
                                 span.small-left-gap Cancel
                         div.clearfix

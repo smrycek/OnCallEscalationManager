@@ -75,5 +75,10 @@ function newAppCtrl($scope, $http, $route) {
         responsePromise.error(function (data, status, headers, config) {
             alert("Submitting form failed!");
         });
-    }
+    };
+
+    $scope.form.empty = function () {
+        $scope.form.appName = "";
+        $scope.form.appPhone = "";
+    };
 };
