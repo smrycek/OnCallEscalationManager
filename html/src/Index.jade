@@ -43,7 +43,7 @@ div
                             div.medium-small {{app.Phone}}
                         div.col-xs-3.text-right
                             div.huge {{app.Staff.length}}
-                            div(ng-if="app.Staff.length > 1 || app.Staff.length > 1") Staff Members
+                            div(ng-if="app.Staff.length > 1 || app.Staff.length == 0") Staff Members
                             div(ng-if="app.Staff.length == 1") Staff Member
                 a(href="/Applications/{{app.Name}}")
                     div.panel-footer
