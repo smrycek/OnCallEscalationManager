@@ -27,11 +27,36 @@ div
         div.col-xs-12
             div.panel.panel-default
                 div.panel-heading Application Staff
+                    i.fa.fa-plus-square.BWGray.pull-right.mediumIcon(style="margin-top:-6px;", ng-click="$parent.isCollapsed = !$parent.isCollapsed", tooltip-placement="left" tooltip="Add New Staff")
                 div.panel-body
-                        div.row
-                            div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="staff in app.Staff | orderBy:'Name'")
-                                div.panel(ng-class="{'panel-red' : $index%5==0, 'panel-purple' : $index%5==1, 'panel-blue' : $index%5==2, 'panel-green' : $index%5==3, 'panel-yellow' : $index%5==4}")
-                                    div.panel-heading 
-                                        i.fa.fa-user.iconImage
-                                        | {{staff.Name}}
-                                    div.panel-body.center {{staff.Primary}}
+                    div.row(collapse="isCollapsed")
+                        form.form(name="newStaff", ng-controller="newStaffCtrl", ng-submit="form.submit()")
+                            div.col-xs-12.col-sm-6.col-lg-3
+                                div.panel.panel-gray
+                                    div.panel-heading
+                                        div.row
+                                            div.col-xs-1
+                                                i.fa.fa-user.iconImage
+                                            div.col-xs-9
+                                                input.form-control(type="text", name="Name", style="padding-top: 4px; padding-bottom: 4px; height: 24px; margin-left: -8px;", ng-minlength="1", ng-model="form.staffName", placeholder="Staff Name", required)
+                                            
+                                    div.panel-body.center
+                                        input.form-control(type="text", name="Phone", ui-mask="(999) 999-9999",tooltip-placement="right" tooltip="Staff Phone Number" ng-minlength="10" ng-model="form.staffPrimary", placeholder="(xxx) xxx-xxxx", required)
+                                    div.panel-footer(style="padding: 0px; height:30px;")
+                                        div.row(style="padding: 0px; height:30px; margin:0px;")
+                                            div.col-xs-6.submitInPanel-small.BWGray.hoverBluePointer(style="padding: 0px; margin:0px;")
+                                                button(type="submit", style="border:none; height:29px; width:100%;")
+                                                    i.fa.fa-check
+                                                    span.small-left-gap Submit
+                                            div.col-xs-6.cancelInPanel-small.BWGray.hoverBluePointer(style="padding: 0px;", ng-click="form.empty(); $parent.isCollapsed = !$parent.isCollapsed")
+                                                button(type="button", style="border:none; height:29px; width:100%;")
+                                                    i.fa.fa-times
+                                                    span.small-left-gap Cancel
+                                        div.clearfix
+                    div.row
+                        div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="staff in app.Staff | orderBy:'Name'")
+                            div.panel(ng-class="{'panel-red' : $index%5==0, 'panel-purple' : $index%5==1, 'panel-blue' : $index%5==2, 'panel-green' : $index%5==3, 'panel-yellow' : $index%5==4}")
+                                div.panel-heading 
+                                    i.fa.fa-user.iconImage
+                                    | {{staff.Name}}
+                                div.panel-body.center {{staff.Primary}}

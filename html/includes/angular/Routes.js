@@ -3,6 +3,7 @@ var OCEM = angular.module('OnCallEscalationManager', ['ngRoute', 'ui.bootstrap',
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
 OCEM.controller('newAppCtrl', ['$scope','$http', '$route', newAppCtrl]);
+OCEM.controller('newStaffCtrl', ['$scope', '$http', '$route', '$routeParams', newStaffCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -45,6 +46,8 @@ function indexCtrl($scope, $http) {
 function detailCtrl($scope, $http, $routeParams) {
     $scope.method = 'GET';
     $scope.url = '/api/applications/' + $routeParams.appName;
+    $scope.appName = $routeParams.appName;
+    $scope.isCollapsed = true;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
@@ -80,5 +83,25 @@ function newAppCtrl($scope, $http, $route) {
     $scope.form.empty = function () {
         $scope.form.appName = "";
         $scope.form.appPhone = "";
+    };
+};
+
+function newStaffCtrl($scope, $http, $route, $routeParams){
+    $scope.form = {};
+    $scope.staffName ="";
+    $scope.staffPrimary ="";
+
+    $scope.form.submit = function (item, event) {
+        var dataObject = {
+            Name: $scope.form.staffName,
+            Phone: $scope.form.staffPrimary
+        };
+        var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/staff", dataObject, {});
+            responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+            responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
     };
 };

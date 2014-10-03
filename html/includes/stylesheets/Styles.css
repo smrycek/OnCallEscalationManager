@@ -46,9 +46,13 @@
     font-size: 48px;
 }
 
-.bigIcon:hover {
+.bigIcon:hover, .mediumIcon:hover {
     color: #63B1E5;
     cursor: pointer;
+}
+
+.mediumIcon {
+    font-size: 32px;
 }
 
 .blackText {
@@ -65,6 +69,19 @@
 
 .cancelInPanel {
     height: 40px;
+    text-align: center;
+}
+
+.submitInPanel-small {
+    border-right-style: solid;
+    border-right-width: thin;
+    border-right-color: #ACACAF;
+    height: 30px;
+    text-align: center;
+}
+
+.cancelInPanel-small {
+    height: 30px;
     text-align: center;
 }
 
