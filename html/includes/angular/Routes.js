@@ -1,4 +1,4 @@
-var OCEM = angular.module('OnCallEscalationManager', ['ngRoute', 'ui.bootstrap']);
+var OCEM = angular.module('OnCallEscalationManager', ['ngRoute', 'ui.bootstrap', 'ui.mask']);
 
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
@@ -72,8 +72,8 @@ function newAppCtrl($scope, $http, $route) {
         responsePromise.success(function (data, status) {
             $route.reload();
         });
-        responsePromise.error(function (data, status, headers, config) {
-            alert("Submitting form failed!");
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
         });
     };
 

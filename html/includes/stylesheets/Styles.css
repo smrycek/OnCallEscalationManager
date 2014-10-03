@@ -68,11 +68,6 @@
     text-align: center;
 }
 
-.submitInPanel > *, .cancelInPanel > * {
-    position: relative;
-    top: calc(50% - 10px);
-}
-
 .hoverBluePointer:hover{
     color: #63B1E5;
     cursor: pointer;
