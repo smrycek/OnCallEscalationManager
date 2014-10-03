@@ -6,25 +6,27 @@ div.row
     //-- end .col-lg-12 --
 //-- end .row --
 div
-    {{isCollapsed}}
     div.row(collapse="isCollapsed")
         div.col-lg-7.col-md-12(style="float: none; margin: 0 auto;")
-            form(name="newApp", action="#", ng-controller="newAppCtrl")
+            form.form(name="newApp", action="#", ng-controller="newAppCtrl")
                 div.panel.panel-gray
                     div.panel-heading
                         div.row
                             div.col-xs-2.col-sm-1
                                 i.fa.fa-users.fa-5x
-                            div.col-xs-7.col-sm-8.left-gap
-                                div.medium Application Name: 
-                                    input(type="text", name="Name")
-                                div.medium-small Application Phone: 
-                                    input(type="text", name="Phone")
-                    div.panel-footer
-                        span.pull-left
-                            i.fa.fa-check.BWGray
-                        span.pull-right
-                            i.fa.fa-times.BWGray
+                            div.col-xs-7.col-sm-8.left-gap.blackText
+                                div.medium
+                                    input.form-control(type="text", name="appName", ng-model="form.appName", placeholder="Application Name" required)
+                                div.medium-small
+                                    input.form-control.tiny-top-margin(type="text", name="appPhone", ng-model="form.appPhone", placeholder="Application Phone" required)
+                    div.panel-footer(style="padding: 0px; height:40px")
+                        div.row(style="padding: 0px; height:40px")
+                            div.col-xs-6.submitInPanel.BWGray.hoverBluePointer(style="padding: 0px;" ng-click="form.submit()")
+                                i.fa.fa-check
+                                span.small-left-gap Submit
+                            div.col-xs-6.cancelInPanel.BWGray.hoverBluePointer(style="padding: 0px;", ng-click="$parent.isCollapsed = !$parent.isCollapsed")
+                                i.fa.fa-times
+                                span.small-left-gap Cancel
                         div.clearfix
     //-- end .row --
     div.row(ng-repeat="app in apps | orderBy:'Name'")

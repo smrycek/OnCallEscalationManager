@@ -2,7 +2,7 @@ var OCEM = angular.module('OnCallEscalationManager', ['ngRoute', 'ui.bootstrap']
 
 OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
-OCEM.controller('newAppCtrl', ['$scope','$http', newAppCtrl]);
+OCEM.controller('newAppCtrl', ['$scope','$http', '$route', newAppCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -57,6 +57,23 @@ function detailCtrl($scope, $http, $routeParams) {
     });
 };
 
-function newAppCtrl($scope, $http) { 
+function newAppCtrl($scope, $http, $route) { 
+    $scope.form = {};
+    $scope.form.appName = "";
+    $scope.form.appPhone = "";
 
+    $scope.form.submit = function (item, event) {
+        var dataObject = {
+            Name: $scope.form.appName,
+            Phone: $scope.form.appPhone
+        };
+
+        var responsePromise = $http.post("/api/applications/", dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status, headers, config) {
+            alert("Submitting form failed!");
+        });
+    }
 };

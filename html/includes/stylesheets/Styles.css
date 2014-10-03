@@ -17,13 +17,20 @@
     margin-right:  15px;
 }
 
-
 .center {
     text-align: center;
 }
 
+.small-left-gap {
+    padding-left:  20px;
+}
+
 .big-left-gap {
     padding-left:  40px;
+}
+
+.tiny-top-margin {
+    margin-top: 10px;
 }
 
 .BWGray {
@@ -40,6 +47,33 @@
 }
 
 .bigIcon:hover {
+    color: #63B1E5;
+    cursor: pointer;
+}
+
+.blackText {
+    color: #000;
+}
+
+.submitInPanel {
+    border-right-style: solid;
+    border-right-width: thin;
+    border-right-color: #ACACAF;
+    height: 40px;
+    text-align: center;
+}
+
+.cancelInPanel {
+    height: 40px;
+    text-align: center;
+}
+
+.submitInPanel > *, .cancelInPanel > * {
+    position: relative;
+    top: calc(50% - 10px);
+}
+
+.hoverBluePointer:hover{
     color: #63B1E5;
     cursor: pointer;
 }
