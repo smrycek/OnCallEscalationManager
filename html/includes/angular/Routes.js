@@ -4,6 +4,8 @@ OCEM.controller('indexCtlr', ['$scope','$http', indexCtrl]);
 OCEM.controller('detailCtlr', ['$scope','$http', '$routeParams', detailCtrl]);
 OCEM.controller('newAppCtrl', ['$scope','$http', '$route', newAppCtrl]);
 OCEM.controller('newStaffCtrl', ['$scope', '$http', '$route', '$routeParams', newStaffCtrl]);
+OCEM.controller('removeAppCtrl', ['$scope', '$http', '$modal', '$routeParams', '$location', removeAppCtrl]);
+OCEM.controller('removeModalCtrl', ['$scope', '$modalInstance', removeModalCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -97,11 +99,42 @@ function newStaffCtrl($scope, $http, $route, $routeParams){
             Phone: $scope.form.staffPrimary
         };
         var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/staff", dataObject, {});
-            responsePromise.success(function (data, status) {
+        responsePromise.success(function (data, status) {
             $route.reload();
         });
-            responsePromise.error(function (data, status) {
+        responsePromise.error(function (data, status) {
             alert(data.Message);
         });
+    };
+};
+
+function removeAppCtrl($scope, $http, $modal, $routeParams, $location) {
+    $scope.open = function (size) {
+
+        var modalInstance = $modal.open({
+            templateUrl: 'removeAppModal.jade',
+            controller: 'removeModalCtrl',
+            size: size
+        });
+
+        modalInstance.result.then(function () {
+            var responsePromise = $http.delete("/api/applications/" + $routeParams.appName, {});
+            responsePromise.success(function (data, status) {
+                $location.path("/");
+            });
+            responsePromise.error(function (data, status) {
+                alert(data.Message);
+            });
+        });
+    }
+};
+
+function removeModalCtrl($scope, $modalInstance){
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
     };
 };

@@ -9,6 +9,15 @@ div
         div.col-xs-12
             div.panel.panel-default
                 div.panel-heading Application Details
+                    div.pull-right(ng-controller="removeAppCtrl")
+                        i.fa.fa-times.BWGray.mediumIcon(style="margin-top:-6px;", ng-click="open()", tooltip-placement="left", tooltip="Delete Application")
+                            script(type="text/ng-template", id="removeAppModal.jade")
+                                div.modal-header
+                                    h3.modal-title Do you really want to delete this application?
+                                div.modal-footer
+                                    button.btn.btn-primary(ng-click="ok()") Yes
+                                    button.btn.btn-warning(ng-click="cancel()") No
+                    i.fa.fa-pencil.BWGray.pull-right.mediumIcon(style="margin-top:-6px; margin-right:9px; margin-left:0px;", tooltip-placement="left", tooltip="Edit Application")
                 div.panel-body
                     div.row
                         div.col-xs-2 Escalation Number:
