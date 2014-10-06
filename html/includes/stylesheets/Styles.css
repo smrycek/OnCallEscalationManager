@@ -89,3 +89,10 @@
     color: #63B1E5;
     cursor: pointer;
 }
+
+.medium-line, .medium-line i, .medium-line span {
+    display:  inline-block;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
