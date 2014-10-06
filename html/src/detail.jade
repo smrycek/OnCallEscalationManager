@@ -17,10 +17,10 @@ div
                                 div.modal-footer
                                     button.btn.btn-success(ng-click="ok()") Yes
                                     button.btn.btn-danger(ng-click="cancel()") No
-                    i.fa.fa-pencil.BWGray.pull-right.mediumIcon(style="margin-top:-6px; margin-right:9px; margin-left:0px;", tooltip-placement="left", tooltip="Edit Application")
-                div.panel-body
+                    i.fa.fa-pencil.BWGray.pull-right.mediumIcon(style="margin-top:-6px; margin-right:9px; margin-left:0px;", ng-click="$parent.isEditingApp = !$parent.isEditingApp", tooltip-placement="left", tooltip="Edit Application")
+                div.panel-body(ng-show="!isEditingApp")
                     div.row
-                        div.col-xs-12.medium-small.medium-line 
+                        div.col-xs-12.medium-small.medium-line
                             i.fa.fa-phone.fa-2x 
                             span.left-gap {{app.Phone}}
                     div.row
@@ -28,7 +28,7 @@ div
                             div.col-xs-12.medium-small.medium-line 
                                 i.fa.fa-user.fa-2x 
                                 span.left-gap Fallback Staffer:
-                            div.col-xs-12.col-sm-6.col-lg-3
+                            div.col-xs-12.col-sm-6.col-lg-3.tiny-top-margin
                                 div.panel.panel-red
                                     div.panel-heading 
                                         i.fa.fa-user.iconImage
@@ -37,6 +37,25 @@ div
                         div.col-xs-12.medium-small.medium-line(ng-show="!app.Fallback.Name")
                             i.fa.fa-user.fa-2x 
                             span.left-gap No Fallback Staffer
+                form.form(name="editApp", ng-controller="editAppCtrl", ng-submit="form.submit()")
+                    div.panel-body(ng-show="isEditingApp")
+                        div.row
+                            div.col-xs-12.col-sm-6.col-lg-3.medium-small
+                                div.input-group
+                                    div.input-group-addon
+                                        i.fa.fa-phone
+                                    input.form-control(type="text", name="appPhone", ui-mask="(999) 999-9999",tooltip-placement="right" tooltip="Application Phone Number" ng-minlength="10" ng-model="form.appPhone", placeholder="(xxx) xxx-xxxx", required)
+                        div.row.tiny-top-margin
+                            div.col-xs-12.col-sm-6.col-lg-3.medium-small
+                                div.input-group
+                                    div.input-group-addon
+                                        i.fa.fa-user
+                                    select.form-control(name="appFallback", ng-model="form.appFallback", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                        option(style="display:none", value="") Select a Fallback Staffer
+                        div.row.tiny-top-margin
+                            div.col-xs-12
+                                button.btn.btn-success(type="submit") Save
+                                button.btn.btn-danger.tiny-left-space(type="submit", ng-click="$parent.isEditingApp = !$parent.isEditingApp") Cancel
     hr
     div.row
         div.col-xs-12

@@ -21,6 +21,18 @@
     text-align: center;
 }
 
+.tiny-left-space {
+    margin-left:  10px;
+}
+
+.small-left-space {
+    margin-left:  20px;
+}
+
+.big-left-space {
+    margin-left:  40px;
+}
+
 .small-left-gap {
     padding-left:  20px;
 }
@@ -95,4 +107,8 @@
     height: 40px;
     line-height: 40px;
     vertical-align: middle;
+}
+
+.inline {
+    display: inline;
 }

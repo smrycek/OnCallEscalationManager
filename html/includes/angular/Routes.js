@@ -50,6 +50,7 @@ function detailCtrl($scope, $http, $routeParams) {
     $scope.url = '/api/applications/' + $routeParams.appName;
     $scope.appName = $routeParams.appName;
     $scope.isCollapsed = true;
+    $scope.isEditingApp = false;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
@@ -137,4 +138,41 @@ function removeModalCtrl($scope, $modalInstance){
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+};
+
+function editAppCtrl($scope, $http, $modal, $route, $routeParams, $location){
+    $scope.form = {};
+    $scope.form.appPhone ="";
+    $scope.form.appFallback ="";
+
+    $http({method: 'GET', url: '/api/applications/' + $routeParams.appName}).
+        success(function(data, status) {
+        $scope.status = status;
+        $scope.app = data.results;
+
+        $scope.form.appPhone = $scope.app.Phone;
+        $scope.form.appFallback = $scope.app.Fallback;
+    })
+    .error(function(data, status) {
+        $scope.app = data.results || "Request failed";
+        $scope.status = status;
+    });
+
+    $scope.form.submit = function (item, event) {
+        var dataObject = {
+            Phone: $scope.form.appPhone,
+            Fallback: $scope.form.appFallback
+        };
+        var responsePromise = $http.put("/api/applications/" + $routeParams.appName, dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
+    };
+
+    $scope.getStaffString = function(staff) {
+        return staff.Name + " - " + staff.Primary;
+    }
 };
