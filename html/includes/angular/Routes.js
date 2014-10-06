@@ -151,7 +151,9 @@ function editAppCtrl($scope, $http, $modal, $route, $routeParams, $location){
         $scope.app = data.results;
 
         $scope.form.appPhone = $scope.app.Phone;
-        $scope.form.appFallback = $scope.app.Fallback;
+        if ($scope.app.Fallback) {
+            $scope.form.appFallback = $scope.app.Fallback;
+        }
     })
     .error(function(data, status) {
         $scope.app = data.results || "Request failed";
@@ -161,7 +163,7 @@ function editAppCtrl($scope, $http, $modal, $route, $routeParams, $location){
     $scope.form.submit = function (item, event) {
         var dataObject = {
             Phone: $scope.form.appPhone,
-            Fallback: $scope.form.appFallback
+            Fallback: $scope.form.appFallback._id
         };
         var responsePromise = $http.put("/api/applications/" + $routeParams.appName, dataObject, {});
         responsePromise.success(function (data, status) {
