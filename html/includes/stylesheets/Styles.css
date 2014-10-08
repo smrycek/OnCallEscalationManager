@@ -29,6 +29,10 @@
     margin-left:  20px;
 }
 
+.big-right-space {
+    margin-right:  40px;
+}
+
 .big-left-space {
     margin-left:  40px;
 }
@@ -58,13 +62,21 @@
     font-size: 48px;
 }
 
-.bigIcon:hover, .mediumIcon:hover {
+.bigIcon:hover, .mediumIcon:hover, .smallIcon:hover {
     color: #63B1E5;
     cursor: pointer;
 }
 
 .mediumIcon {
     font-size: 32px;
+}
+
+.smallIcon {
+    font-size: 14px;
+}
+
+.tiny-top-margin {
+    margin-top:  3px;
 }
 
 .blackText {
@@ -111,4 +123,11 @@
 
 .inline {
     display: inline;
+}
+
+.smallerHeight {
+    font-size: 12px;
+    height:  24px;
+    padding-top: 2px;
+    padding-bottom:  2px;
 }

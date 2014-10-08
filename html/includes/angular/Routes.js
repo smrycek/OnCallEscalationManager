@@ -6,6 +6,8 @@ OCEM.controller('newAppCtrl', ['$scope','$http', '$route', newAppCtrl]);
 OCEM.controller('newStaffCtrl', ['$scope', '$http', '$route', '$routeParams', newStaffCtrl]);
 OCEM.controller('removeAppCtrl', ['$scope', '$http', '$modal', '$routeParams', '$location', removeAppCtrl]);
 OCEM.controller('removeModalCtrl', ['$scope', '$modalInstance', removeModalCtrl]);
+OCEM.controller('editAppCtrl', ['$scope', '$http', '$route', '$routeParams', editAppCtrl]);
+OCEM.controller('editStaffCtrl', ['$scope', '$http', '$route', '$routeParams', editStaffCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -140,7 +142,7 @@ function removeModalCtrl($scope, $modalInstance){
     };
 };
 
-function editAppCtrl($scope, $http, $modal, $route, $routeParams, $location){
+function editAppCtrl($scope, $http, $route, $routeParams){
     $scope.form = {};
     $scope.form.appPhone ="";
     $scope.form.appFallback ="";
@@ -177,4 +179,25 @@ function editAppCtrl($scope, $http, $modal, $route, $routeParams, $location){
     $scope.getStaffString = function(staff) {
         return staff.Name + " - " + staff.Primary;
     }
+};
+
+function editStaffCtrl($scope, $http, $route, $routeParams){
+    $scope.isEditingStaff = false;
+    $scope.form = {};
+    //$scope.form.staffName = "boob";
+    
+    $scope.form.submit = function (item, event) {
+        var dataObject = {
+            Name: $scope.form.staffName,
+            Phone: $scope.form.staffPrimary
+        };
+        var responsePromise = $http.put("/api/applications/" + $routeParams.appName + "/staff/" + $scope.form.oldPrimary.split(" ").join(""), dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
+    };
+
 };

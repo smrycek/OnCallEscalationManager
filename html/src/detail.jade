@@ -72,7 +72,7 @@ div
                                             div.col-xs-1
                                                 i.fa.fa-user.iconImage
                                             div.col-xs-9
-                                                input.form-control(type="text", name="Name", style="padding-top: 4px; padding-bottom: 4px; height: 24px; margin-left: -8px;", ng-minlength="1", ng-model="form.staffName", placeholder="Staff Name", required)
+                                                input.form-control.smallerHeight(type="text", name="Name", style="margin-left: -8px;", ng-minlength="1", ng-model="form.staffName", placeholder="Staff Name", required)
                                             
                                     div.panel-body.center
                                         div.input-group
@@ -92,8 +92,30 @@ div
                                         div.clearfix
                     div.row
                         div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="staff in app.Staff | orderBy:'Name'")
-                            div.panel(ng-class="{'panel-red' : $index%5==4, 'panel-purple' : $index%5==0, 'panel-blue' : $index%5==1, 'panel-green' : $index%5==2, 'panel-yellow' : $index%5==3}")
-                                div.panel-heading 
-                                    i.fa.fa-user.iconImage
-                                    | {{staff.Name}}
-                                div.panel-body.center {{staff.Primary}}
+                            div.panel(ng-controller="editStaffCtrl", ng-class="{'panel-red' : $index%5==4, 'panel-purple' : $index%5==0, 'panel-blue' : $index%5==1, 'panel-green' : $index%5==2, 'panel-yellow' : $index%5==3}")
+                                form.form(name="editStaff", ng-controller="editStaffCtrl", ng-submit="form.submit()")
+                                    input(type="hidden", name="oldPrimary", ng-model="form.oldPrimary", ng-init="form.oldPrimary=staff.Primary")
+                                    div.panel-heading(ng-show="!isEditingStaff")
+                                        i.fa.fa-user.iconImage
+                                        | {{staff.Name}}
+                                        i.fa.fa-pencil.pull-right.smallIcon.tiny-top-margin(ng-click="$parent.isEditingStaff = !$parent.isEditingStaff", tooltip-placement="left", tooltip="Edit Staff")
+                                    div.panel-heading(ng-show="isEditingStaff")
+                                        i.fa.fa-user.iconImage
+                                        input.form-control(type="text", name="staffName", ng-minlength="1", ng-model="form.staffName", ng-init="form.staffName=staff.Name", placeholder="Staff Name", required)     
+                                        i.fa.fa-pencil.pull-right.smallIcon.tiny-top-margin(ng-click="$parent.isEditingStaff = !$parent.isEditingStaff", tooltip-placement="left", tooltip="Edit Staff")
+                                    div.panel-body.center(ng-show="!isEditingStaff") {{staff.Primary}}
+                                    div.panel-body.center(ng-show="isEditingStaff") 
+                                        div.small
+                                        input.form-control(type="text", name="staffPrimary", ui-mask="(999) 999-9999",tooltip-placement="right", tooltip="Staff Phone Number", ng-minlength="10", ng-model="form.staffPrimary", ng-init="form.staffPrimary=staff.Primary", placeholder="(xxx) xxx-xxxx", required)
+                                
+                                    div.panel-footer(style="padding: 0px; height:30px;", ng-show="isEditingStaff")
+                                        div.row(style="padding: 0px; height:30px; margin:0px;")
+                                            div.col-xs-6.submitInPanel-small.BWGray.hoverBluePointer(style="padding: 0px; margin:0px;")
+                                                button(type="submit", style="border:none; height:29px; width:100%;")
+                                                    i.fa.fa-check
+                                                    span.small-left-gap Submit
+                                            div.col-xs-6.cancelInPanel-small.BWGray.hoverBluePointer(style="padding: 0px;", ng-click="form.empty(); $parent.isEditingStaff = !$parent.isEditingStaff")
+                                                button(type="button", style="border:none; height:29px; width:100%;")
+                                                    i.fa.fa-times
+                                                    span.small-left-gap Cancel
+                                        div.clearfix
