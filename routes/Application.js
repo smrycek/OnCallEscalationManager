@@ -18,4 +18,11 @@ module.exports = function (app) {
     app.delete('/api/applications/:appName/staff/:phone', staffHandler.handleDelete);
     app.put('/api/applications/:appName/staff/:phone', staffHandler.handleUpdate);
 
+    //Application Segments Handling
+    app.get('/api/applications/:appName/segments', segmentHandler.handleGet);
+    app.get('/api/applications/:appName/segments/:startDate', segmentHandler.handleGet);
+    app.post('/api/applications/:appName/segments', segmentHandler.handleAdd);
+    app.delete('/api/applications/:appName/segments/:startDate', segmentHandler.handleDelete);
+    app.put('/api/applications/:appName/segments/:startDate', segmentHandler.handleUpdate);
+
 };

@@ -8,6 +8,7 @@ OCEM.controller('removeAppCtrl', ['$scope', '$http', '$modal', '$routeParams', '
 OCEM.controller('removeModalCtrl', ['$scope', '$modalInstance', removeModalCtrl]);
 OCEM.controller('editAppCtrl', ['$scope', '$http', '$route', '$routeParams', editAppCtrl]);
 OCEM.controller('editStaffCtrl', ['$scope', '$http', '$route', '$routeParams', editStaffCtrl]);
+OCEM.controller('removeStaffCtrl', ['$scope', '$http', '$route', '$routeParams', removeStaffCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -192,6 +193,20 @@ function editStaffCtrl($scope, $http, $route, $routeParams){
             Phone: $scope.form.staffPrimary
         };
         var responsePromise = $http.put("/api/applications/" + $routeParams.appName + "/staff/" + $scope.form.oldPrimary.split(" ").join(""), dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
+    };
+
+};
+
+function removeStaffCtrl($scope, $http, $route, $routeParams){
+
+    $scope.removeStaff = function (Primary) {
+        var responsePromise = $http.delete("/api/applications/" + $routeParams.appName + "/staff/" + Primary.split(" ").join(""));
         responsePromise.success(function (data, status) {
             $route.reload();
         });
