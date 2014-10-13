@@ -35,7 +35,8 @@
     "twilio": "1.7.0",
     "express": "~3.1.0",
     "q": "1.0.1",
-    "ejs": "1.0.0"
+    "ejs": "1.0.0",
+    "supertest": "0.0.1"
   },
   "noAnalyze": true,
   "license": "Apache",

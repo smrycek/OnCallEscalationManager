@@ -215,7 +215,7 @@ describe('ApplicationValidator', function () {
         nconf.env().file({ file: 'settings.json' });
 
         //Mongoose Configuration
-        mongoose.connect('mongodb://' + nconf.get('testdatabase:db_user') + ':' + nconf.get('testdatabase:db_pass') + '@kahana.mongohq.com:10070/app28953073');
+        mongoose.connect(nconf.get('testdatabase:MONGOHQ_URL'));
         mongoose.connection.once('connected', function () {
             applicationController.add(goodCase, function (err, doc) {
                 done();
