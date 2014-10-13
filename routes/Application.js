@@ -1,5 +1,6 @@
 var applicationHandler = require('../lib/handlers/ApplicationHandler.js'),
-    staffHandler = require('../lib/handlers/StaffHandler.js')
+    staffHandler = require('../lib/handlers/StaffHandler.js'),
+    segmentHandler = require('../lib/handlers/SegmentHandler.js')
 
 module.exports = function (app) {
 
