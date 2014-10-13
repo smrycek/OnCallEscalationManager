@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
 nconf.env().file({ file: 'settings.json' });
 
 //Mongoose Configuration
-mongoose.connect('mongodb://' + nconf.get('database:db_user') + ':' + nconf.get('database:db_pass') + '@kahana.mongohq.com:10070/app28953073');
+mongoose.connect(nconf.get('database:MONGOHQ_URL'));
 mongoose.connection.once('connected', function() {
     //console.log("Database connected");
 });
@@ -23,7 +23,7 @@ var twilio = require('twilio')(nconf.get("twilio:AccountSID"), nconf.get("twilio
 
 
 //Server Creation
-app.listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
