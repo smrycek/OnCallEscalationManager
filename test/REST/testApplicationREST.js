@@ -3,6 +3,7 @@ var assert = require("assert"),
     should = require('chai').should(),
     nconf = require('nconf'),
     http = require('http'),
+    request = require('supertest'),
     app = require('../../app.js');
 
 describe('Application\'s REST API\'s'), function () {
