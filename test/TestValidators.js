@@ -3,6 +3,95 @@ var assert = require("assert"),
     mongoose = require('mongoose'),
     nconf = require('nconf');
 
+describe('SegmentValidator', function () {
+    var segmentValidator = require('../lib/validators/SegmentValidator.js');
+
+    var date1 = new Date("08/20/2000"), date2 = new Date("08/25/2000"), date3 = new Date("08/26/2000"), date4 = new Date("08/30/2000");
+    var app = new Object();
+    app.Staff = [
+        {
+            Id: "FakeID",
+            Name: "Test",
+            Primary: "(555) 555-5555"
+        },
+        {
+            Id: "FakeID2",
+            Name: "Test2",
+            Primary: "(111) 111-1111"
+        }
+    ];
+    app.Segments = [
+        {
+            StartDate: date1,
+            EndDate: date2,
+            PrimaryStaff: {
+                Id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: {}
+        },
+        {
+            StartDate: date3,
+            EndDate: date4,
+            PrimaryStaff: {
+                Id: "FakeID2",
+                Name: "Test2",
+                Primary: "(111) 111-1111"
+            },
+            SecondaryStaff: {
+                Id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            }
+        }
+    ];
+
+    describe('#validateSegment', function () {
+        var date5 = new Date("09/20/2000"), date6 = new Date("09/25/2000"), date7 = new Date("08/21/2000"), date8 = new Date("08/30/2000");
+        var seg1 = new Object(), seg2 = new Object(), seg3 = new Object();
+        seg1 = {
+            StartDate: date5,
+            EndDate: date6,
+            PrimaryStaff: {
+                Id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: {}
+        };
+        seg2 = {
+            StartDate: date7,
+            EndDate: date8,
+            PrimaryStaff: {
+                Id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: {}
+        };
+        seg3 = {
+            StartDate: date5,
+            EndDate: date6,
+            PrimaryStaff: {},
+            SecondaryStaff: {}
+        };
+        it('should take this segment as valid', function () {
+            segmentValidator.validateSegment(app, seg1, function (err, newseg) {
+                should.not.exist(err);
+                should.exist(newseg);
+            });
+        });
+
+        it('should not take these segments as valid', function () {
+            segmentValidator.validateSegment(app, seg2, function (err, newseg) {
+                should.exist(err);
+                should.exist(newseg);
+            });
+        });
+    });
+});
+
 describe('PhoneValidator: ', function () {
     var phoneValidator = require('../lib/validators/PhoneValidator.js');
 
