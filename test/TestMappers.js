@@ -26,7 +26,9 @@ describe('ApplicationMapper', function () {
             obj.Name = "test";
             obj.Phone = "555-555-5555";
             obj.Fallback = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
-            obj.Staff = [{ staffID: new mongoose.Types.ObjectId('540e2b0caddc924830899aa7')}];
+            obj.Staff = [
+                new mongoose.Types.ObjectId('540e2b0caddc924830899aa7')
+            ];
 
 
             mappedApplication = applicationMapper.mapModel(obj);
