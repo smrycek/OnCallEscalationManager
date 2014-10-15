@@ -1,5 +1,4 @@
-var assert = require("assert"),
-    should = require('chai').should(),
+var should = require('chai').should(),
     mongoose = require('mongoose'),
     nconf = require('nconf');
 
@@ -10,12 +9,12 @@ describe('SegmentValidator', function () {
     var app = new Object();
     app.Staff = [
         {
-            Id: "FakeID",
+            _id: "FakeID",
             Name: "Test",
             Primary: "(555) 555-5555"
         },
         {
-            Id: "FakeID2",
+            _id: "FakeID2",
             Name: "Test2",
             Primary: "(111) 111-1111"
         }
@@ -25,22 +24,22 @@ describe('SegmentValidator', function () {
             StartDate: date1,
             EndDate: date2,
             PrimaryStaff: {
-                Id: "FakeID",
+                _id: "FakeID",
                 Name: "Test",
                 Primary: "(555) 555-5555"
             },
-            SecondaryStaff: {}
+            SecondaryStaff: null
         },
         {
             StartDate: date3,
             EndDate: date4,
             PrimaryStaff: {
-                Id: "FakeID2",
+                _id: "FakeID2",
                 Name: "Test2",
                 Primary: "(111) 111-1111"
             },
             SecondaryStaff: {
-                Id: "FakeID",
+                _id: "FakeID",
                 Name: "Test",
                 Primary: "(555) 555-5555"
             }
@@ -49,32 +48,46 @@ describe('SegmentValidator', function () {
 
     describe('#validateSegment', function () {
         var date5 = new Date("09/20/2000"), date6 = new Date("09/25/2000"), date7 = new Date("08/21/2000"), date8 = new Date("08/30/2000");
-        var seg1 = new Object(), seg2 = new Object(), seg3 = new Object();
+        var seg1 = new Object(), seg2 = new Object(), seg3 = new Object(), seg4 = new Object();
         seg1 = {
             StartDate: date5,
             EndDate: date6,
             PrimaryStaff: {
-                Id: "FakeID",
+                _id: "FakeID",
                 Name: "Test",
                 Primary: "(555) 555-5555"
             },
-            SecondaryStaff: {}
+            SecondaryStaff: null
         };
         seg2 = {
             StartDate: date7,
             EndDate: date8,
             PrimaryStaff: {
-                Id: "FakeID",
+                _id: "FakeID",
                 Name: "Test",
                 Primary: "(555) 555-5555"
             },
-            SecondaryStaff: {}
+            SecondaryStaff: null
         };
         seg3 = {
             StartDate: date5,
             EndDate: date6,
-            PrimaryStaff: {},
-            SecondaryStaff: {}
+            PrimaryStaff: null,
+            SecondaryStaff: null
+        };
+        seg4 = {
+            StartDate: date5,
+            EndDate: date6,
+            PrimaryStaff: {
+                _id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: {
+                _id: "NotID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            }
         };
         it('should take this segment as valid', function () {
             segmentValidator.validateSegment(app, seg1, function (err, newseg) {
@@ -84,7 +97,18 @@ describe('SegmentValidator', function () {
         });
 
         it('should not take these segments as valid', function () {
+            //invalid because overlaps with both segments in the app
             segmentValidator.validateSegment(app, seg2, function (err, newseg) {
+                should.exist(err);
+                should.exist(newseg);
+            });
+            //invalid because no primary on-call staff
+            segmentValidator.validateSegment(app, seg3, function (err, newseg) {
+                should.exist(err);
+                should.exist(newseg);
+            });
+            //invalid because secondary isn't in staff list
+            segmentValidator.validateSegment(app, seg4, function (err, newseg) {
                 should.exist(err);
                 should.exist(newseg);
             });
