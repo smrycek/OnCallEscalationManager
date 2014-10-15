@@ -4,3 +4,11 @@ node_js:
 - '0.10'
 before_script:
  - chmod +x ./node_modules/.bin/mocha
+notifications:
+  email:
+    recipients:
+      - smrycek@ncsu.edu
+      - ldshehan@ncsu.edu
+      - shpatel5@ncsu.edu
+    on_success: change
+    on_failure: always
