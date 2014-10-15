@@ -40,7 +40,7 @@ var assert = require("assert"),
                         done();
                     });
                 });
-            })
+            });
 
             it('should return all applications if no application name is supplied to the URL', function (done) {
                 var toAdd = new Object();
@@ -151,7 +151,7 @@ var assert = require("assert"),
                 Application.remove({ Name: "test" }, function () {
                     done();
                 });
-            })
+            });
 
             it('should return an error if no application name was submitted', function (done) {
                 var application = {
@@ -285,31 +285,128 @@ var assert = require("assert"),
         });
 
         describe('PUT Request', function () {
-            it('should return an error if no application was sent in the URL'), function (done) {
-                done();
-            };
 
-            it('should return an error if it cant find the supplied application name'), function (done) {
-                done()
-            };
 
-            it('should return an error if the new phone number given is invalid'), function (done) {
-                done()
-            };
+            beforeEach(function (done) {
+                var application = {
+                    Name: 'test',
+                    Phone: '9194913313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
 
-            it('should update an application in the database if all inputs are correct'), function (done) {
-                done()
-            };
+                applicationController.add(application, function (err, doc) {
+                    done();
+                });
+            });
+
+            afterEach(function (done) {
+                Application.remove({ Name: "test" }, function () {
+                    done();
+                });
+            });
+
+            it('should return an error if it cant find the supplied application name', function (done) {
+                var application = {
+                    Phone: '9194913312',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .put('/api/applications/FakeApp')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('Unable to find an application with the name FakeApp.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
+
+            it('should return an error if the new phone number given is invalid', function (done) {
+                var application = {
+                    Phone: '919491331',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .put('/api/applications/test')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('Number did not consist of 10 digits.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
+
+            it('should update an application in the database if all inputs are correct', function (done) {
+                var application = {
+                    Phone: '9194913312',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .put('/api/applications/test')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(200) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Name');
+                    res.body.Name.should.equal('test');
+                    res.body.Status.should.equal('Success');
+                    done();
+                });
+            });
         });
 
         describe('DELETE Request', function () {
-            it('should return an error if no application was sent in the URL'), function (done) {
-                done();
-            };
 
-            it('should delete the application name supplied in the URL'), function (done) {
-                done();
-            };
+            beforeEach(function (done) {
+                var application = {
+                    Name: 'test',
+                    Phone: '9194913313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                applicationController.add(application, function (err, doc) {
+                    done();
+                });
+            });
+
+            afterEach(function (done) {
+                Application.remove({ Name: "test" }, function () {
+                    done();
+                });
+            });
+
+            it('should delete the application name supplied in the URL', function (done) {
+                request(app)
+                .delete('/api/applications/test')
+                .expect('Content-Type', /json/)
+                .expect(200) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Identifier');
+                    res.body.Identifier.should.equal('test');
+                    res.body.Status.should.equal('Success');
+                    done();
+                });
+            });
         });
 
     });
