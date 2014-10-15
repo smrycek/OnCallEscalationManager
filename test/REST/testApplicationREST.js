@@ -137,8 +137,8 @@ var assert = require("assert"),
                     if (err) {
                         throw err;
                     }
-                    // Should.js fluent syntax applied
                     res.body.should.have.property('Message');
+                    res.body.Message.should.equal('No applications found with the name fakeName.');
                     res.body.Status.should.equal('Error');
                     done();
                 });
@@ -146,25 +146,112 @@ var assert = require("assert"),
         });
 
         describe('POST Request', function () {
-            it('should return an error if no application name was submitted'), function (done) {
-                done()
-            };
+            it('should return an error if no application name was submitted', function (done) {
+                var application = {
+                    //Name: 'FakeName',
+                    Phone: '9194913313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
 
-            it('should return an error if no phone number was submitted'), function (done) {
-                done()
-            };
+                request(app)
+                .post('/api/applications/')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('Application Name cannot be blank.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
 
-            it('should return an error if the phone number given is invalid'), function (done) {
-                done()
-            };
+            it('should return an error if no phone number was submitted', function (done) {
+                var application = {
+                    Name: 'FakeName',
+                    //Phone: '9194913313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
 
-            it('should return an error if the application name has 0 length'), function (done) {
-                done()
-            };
+                request(app)
+                .post('/api/applications/')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('Application Phone Number cannot be blank.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
 
-            it('should return an error if an application with the same name exists'), function (done) {
-                done()
-            };
+            it('should return an error if the phone number given is invalid', function (done) {
+                var application = {
+                    Name: 'FakeName',
+                    Phone: '919491313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .post('/api/applications/')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('Number did not consist of 10 digits.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
+
+            it('should return an error if an application with the same name exists', function (done) {
+
+                var toAdd = new Object();
+                toAdd.Name = "test";
+                toAdd.Phone = "555-555-5555";
+
+                applicationController.add(toAdd, function (err, doc) {
+                    //check that there is no error
+                    should.not.exist(err);
+                    should.exist(doc);
+                    doc.should.be.an('object');
+                    //test the data
+                    assert.equal(doc.Name, "test");
+                    assert.equal(doc.Phone, "555-555-5555");
+                });
+
+                var application = {
+                    Name: 'test',
+                    Phone: '5555555555',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .post('/api/applications/')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(500) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Message');
+                    res.body.Message.should.equal('This name has already been used.');
+                    res.body.Status.should.equal('Error');
+                    done();
+                });
+            });
 
             it('should add a new application if all inputs are correct'), function (done) {
                 done()
