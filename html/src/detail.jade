@@ -129,3 +129,23 @@ div
                                                     i.fa.fa-times
                                                     span.small-left-gap Cancel
                                         div.clearfix
+hr
+    div.row
+        div.col-xs-12.col-sm-6.col-lg-3(ng-repeat="app in app.Segments | orderBy:'Name'")                         
+        div.col-xs-12
+            div.panel.panel-default
+                div.panel-heading Application On-Call Duties
+                div.row(style="line-height:20px;")
+                    div.col-xs-10
+                    div.col-xs-7.col-sm-8.big-left-gap
+                        div.medium {{app.StartDate}}
+                        div.medium {{app.EndDate}}
+                        div.medium {{app.Primary}}
+                        div.medium {{app.Secondary}}
+
+                        div.medium {{app.Name}}   
+                        div.medium {{app.Phone}}
+                        div.medium {{app.Fallback.Name}}
+                        div.medium {{app.Fallback.Primary}}
+                div.panel-body
+                    div.col-xs-6.hoverBluePointer(style="padding: 0px; margin:0px;")
