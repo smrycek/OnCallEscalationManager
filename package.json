@@ -36,7 +36,7 @@
     "express": "~3.1.0",
     "q": "1.0.1",
     "ejs": "1.0.0",
-    "supertest": "0.0.1"
+    "supertest": "0.14.0"
   },
   "noAnalyze": true,
   "license": "Apache",

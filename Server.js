@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
     nconf = require('nconf'),
-    promptly = require('promptly'),
     express = require('express'),
     http = require('http'),
     path = require('path'),

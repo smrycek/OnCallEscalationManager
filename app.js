@@ -10,7 +10,7 @@ app.configure(function(){
   app.set('views', __dirname + '/html/src');
   app.set('view engine', 'jade');
   app.use(express.favicon());
-  app.use(express.logger('dev'));
+  //app.use(express.logger('dev'));
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(express.methodOverride());
