@@ -146,6 +146,13 @@ var assert = require("assert"),
         });
 
         describe('POST Request', function () {
+
+            afterEach(function (done) {
+                Application.remove({ Name: "test" }, function () {
+                    done();
+                });
+            })
+
             it('should return an error if no application name was submitted', function (done) {
                 var application = {
                     //Name: 'FakeName',
@@ -253,9 +260,28 @@ var assert = require("assert"),
                 });
             });
 
-            it('should add a new application if all inputs are correct'), function (done) {
-                done()
-            };
+            it('should add a new application if all inputs are correct', function (done) {
+                var application = {
+                    Name: 'test',
+                    Phone: '9194913313',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
+                request(app)
+                .post('/api/applications/')
+                .send(application)
+                .expect('Content-Type', /json/)
+                .expect(200) //Status code
+                .end(function (err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.body.should.have.property('Name');
+                    res.body.Name.should.equal('test');
+                    res.body.Status.should.equal('Success');
+                    done();
+                });
+            });
         });
 
         describe('PUT Request', function () {
