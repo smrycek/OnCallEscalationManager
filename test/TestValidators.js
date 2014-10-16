@@ -48,7 +48,7 @@ describe('SegmentValidator', function () {
 
     describe('#validateSegment', function () {
         var date5 = new Date("09/20/2000"), date6 = new Date("09/25/2000"), date7 = new Date("08/21/2000"), date8 = new Date("08/30/2000");
-        var seg1 = new Object(), seg2 = new Object(), seg3 = new Object(), seg4 = new Object();
+        var seg1 = new Object(), seg2 = new Object(), seg3 = new Object(), seg4 = new Object(), seg5 = new Object(), seg6 = new Object();
         seg1 = {
             StartDate: date5,
             EndDate: date6,
@@ -89,8 +89,36 @@ describe('SegmentValidator', function () {
                 Primary: "(555) 555-5555"
             }
         };
+        seg5 = {
+            StartDate: date6,
+            EndDate: date5,
+            PrimaryStaff: {
+                _id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: null
+        };
+        seg6 = {
+            StartDate: date5,
+            EndDate: date6,
+            PrimaryStaff: {
+                _id: "FakeID",
+                Name: "Test",
+                Primary: "(555) 555-5555"
+            },
+            SecondaryStaff: {
+                _id: "FakeID2",
+                Name: "Test2",
+                Primary: "(111) 111-1111"
+            }
+        };
         it('should take this segment as valid', function () {
             segmentValidator.validateSegment(app, seg1, function (err, newseg) {
+                should.not.exist(err);
+                should.exist(newseg);
+            });
+            segmentValidator.validateSegment(app, seg6, function (err, newseg) {
                 should.not.exist(err);
                 should.exist(newseg);
             });
@@ -109,6 +137,11 @@ describe('SegmentValidator', function () {
             });
             //invalid because secondary isn't in staff list
             segmentValidator.validateSegment(app, seg4, function (err, newseg) {
+                should.exist(err);
+                should.exist(newseg);
+            });
+            // End date is before Start date
+            segmentValidator.validateSegment(app, seg5, function (err, newseg) {
                 should.exist(err);
                 should.exist(newseg);
             });
