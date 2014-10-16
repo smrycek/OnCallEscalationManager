@@ -59,38 +59,38 @@ var assert = require("assert"),
                     //test the data
                     assert.equal(doc.Name, "test");
                     assert.equal(doc.Phone, "555-555-5555");
-                });
 
-                applicationController.add(toAdd2, function (err, doc) {
-                    //check that there is no error
-                    should.not.exist(err);
-                    should.exist(doc);
-                    doc.should.be.an('object');
-                    //test the data
-                    assert.equal(doc.Name, "test2");
-                    assert.equal(doc.Phone, "666-666-6666");
-                });
+                    applicationController.add(toAdd2, function (err, doc) {
+                        //check that there is no error
+                        should.not.exist(err);
+                        should.exist(doc);
+                        doc.should.be.an('object');
+                        //test the data
+                        assert.equal(doc.Name, "test2");
+                        assert.equal(doc.Phone, "666-666-6666");
 
-                request(app)
-                .get('/api/applications/')
-                .expect('Content-Type', /json/)
-                .expect(200) //Status code
-                .end(function (err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    // Should.js fluent syntax applied
-                    res.body.should.have.property('results');
-                    res.body.Status.should.equal('Success');
-                    Object.prototype.toString.call(res.body.results).should.equal('[object Array]');
-                    res.body.results.length.should.equal(2);
-                    var retApp = res.body.results[0];
-                    var retApp2 = res.body.results[1];
-                    retApp.Name.should.equal(toAdd.Name);
-                    retApp.Phone.should.equal(toAdd.Phone);
-                    retApp2.Name.should.equal(toAdd2.Name);
-                    retApp2.Phone.should.equal(toAdd2.Phone);
-                    done();
+                        request(app)
+                        .get('/api/applications/')
+                        .expect('Content-Type', /json/)
+                        .expect(200) //Status code
+                        .end(function (err, res) {
+                            if (err) {
+                                throw err;
+                            }
+                            // Should.js fluent syntax applied
+                            res.body.should.have.property('results');
+                            res.body.Status.should.equal('Success');
+                            Object.prototype.toString.call(res.body.results).should.equal('[object Array]');
+                            res.body.results.length.should.equal(2);
+                            var retApp = res.body.results[0];
+                            var retApp2 = res.body.results[1];
+                            retApp.Name.should.equal(toAdd.Name);
+                            retApp.Phone.should.equal(toAdd.Phone);
+                            retApp2.Name.should.equal(toAdd2.Name);
+                            retApp2.Phone.should.equal(toAdd2.Phone);
+                            done();
+                        });
+                    });
                 });
             });
 
@@ -107,24 +107,24 @@ var assert = require("assert"),
                     //test the data
                     assert.equal(doc.Name, "test");
                     assert.equal(doc.Phone, "555-555-5555");
-                });
 
-                request(app)
-                .get('/api/applications/test')
-                .expect('Content-Type', /json/)
-                .expect(200) //Status code
-                .end(function (err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    // Should.js fluent syntax applied
-                    res.body.should.have.property('results');
-                    res.body.Status.should.equal('Success');
-                    var retApp = res.body.results;
-                    Object.prototype.toString.call(retApp).should.not.equal('[object Array]');
-                    retApp.Name.should.equal(toAdd.Name);
-                    retApp.Phone.should.equal(toAdd.Phone);
-                    done();
+                    request(app)
+                    .get('/api/applications/test')
+                    .expect('Content-Type', /json/)
+                    .expect(200) //Status code
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        // Should.js fluent syntax applied
+                        res.body.should.have.property('results');
+                        res.body.Status.should.equal('Success');
+                        var retApp = res.body.results;
+                        Object.prototype.toString.call(retApp).should.not.equal('[object Array]');
+                        retApp.Name.should.equal(toAdd.Name);
+                        retApp.Phone.should.equal(toAdd.Phone);
+                        done();
+                    });
                 });
             });
 
@@ -228,6 +228,12 @@ var assert = require("assert"),
                 toAdd.Name = "test";
                 toAdd.Phone = "555-555-5555";
 
+                var application = {
+                    Name: 'test',
+                    Phone: '5555555555',
+                    Fallback: '4edd40c86762e0fb12000003'
+                };
+
                 applicationController.add(toAdd, function (err, doc) {
                     //check that there is no error
                     should.not.exist(err);
@@ -236,27 +242,21 @@ var assert = require("assert"),
                     //test the data
                     assert.equal(doc.Name, "test");
                     assert.equal(doc.Phone, "555-555-5555");
-                });
 
-                var application = {
-                    Name: 'test',
-                    Phone: '5555555555',
-                    Fallback: '4edd40c86762e0fb12000003'
-                };
-
-                request(app)
-                .post('/api/applications/')
-                .send(application)
-                .expect('Content-Type', /json/)
-                .expect(500) //Status code
-                .end(function (err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.body.should.have.property('Message');
-                    res.body.Message.should.equal('This name has already been used.');
-                    res.body.Status.should.equal('Error');
-                    done();
+                    request(app)
+                    .post('/api/applications/')
+                    .send(application)
+                    .expect('Content-Type', /json/)
+                    .expect(500) //Status code
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.body.should.have.property('Message');
+                        res.body.Message.should.equal('This name has already been used.');
+                        res.body.Status.should.equal('Error');
+                        done();
+                    });
                 });
             });
 
