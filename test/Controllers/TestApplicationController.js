@@ -279,6 +279,23 @@ describe('ApplicationController', function () {
                 }
             });
         });
+
+        it('Should return no error and no doc if an application with the id isnt found', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    applicationController.findById('540e2b0caddc924830899aa7', function (err, doc) {
+                        //check that there is no error
+                        should.not.exist(err);
+                        should.not.exist(doc);
+                        done();
+                    });
+                }
+            });
+        });
     });
 
     describe('#removeById()', function () {
@@ -399,6 +416,39 @@ describe('ApplicationController', function () {
                 }
             });
         });
+
+        it('Should not add a duplicate staff member to an application', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var staff = new Object();
+            staff._id = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+            staff.Name = 'Sean Rycek';
+            staff.Primary = '9194913313';
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+
+                    applicationController.addToStaff(doc._id, staff, function(err, doc) {
+                       should.not.exist(err);
+                       should.exist(doc); 
+                       doc.Staff.length.should.equal(1);
+                       doc.Staff[0].toString().should.equals('540e2b0caddc924830899aa7');
+                       
+                       applicationController.addToStaff(doc._id, staff, function(err, doc) {
+                           should.not.exist(err);
+                           should.exist(doc); 
+                           doc.Staff.length.should.equal(1);
+                           doc.Staff[0].toString().should.equals('540e2b0caddc924830899aa7');
+                           done();
+                        });
+                    });
+                }
+            });
+        });
     });
 
     describe('#removeStaff()', function () {
@@ -436,6 +486,164 @@ describe('ApplicationController', function () {
                            doc.Staff.length.should.equal(0);
                            done();
                        });
+                    });
+                }
+            });
+        });
+
+        it('Should return the application even if the staff member isnt in the staff group', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var staff = new Object();
+            staff._id = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+            staff.Name = 'Sean Rycek';
+            staff.Primary = '9194913313';
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+                    
+                    applicationController.removeStaff(doc._id, staff, function(err, doc) {
+                        should.not.exist(err);
+                        should.exist(doc); 
+                        doc.Staff.length.should.equal(0);
+                        done();
+                    });
+                }
+            });
+        });
+    });
+
+    describe('#addSegment()', function () {
+
+        afterEach(function (done) {
+            Application.remove({ Name: "test" }, function () {
+                done();
+            });
+        });
+
+        it('Should add a segment to an application', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var segment = new Object();
+            segment.StartDate = new Date('1/15/2020');
+            segment.EndDate = new Date('1/22/2020');
+            segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+
+                    applicationController.addSegment(doc._id, segment, function(err, doc) {
+                       should.not.exist(err);
+                       should.exist(doc); 
+                       doc.Segments.length.should.equal(1);
+                       doc.Segments[0].StartDate.getFullYear().should.equal(2020);
+                       done();
+                    });
+                }
+            });
+        });
+
+        it('Should not add a duplicate segment to an application', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var segment = new Object();
+            segment.StartDate = new Date('1/15/2020');
+            segment.EndDate = new Date('1/22/2020');
+            segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+
+                    applicationController.addSegment(doc._id, segment, function(err, doc) {
+                       should.not.exist(err);
+                       should.exist(doc); 
+                       doc.Segments.length.should.equal(1);
+                       doc.Segments[0].StartDate.getFullYear().should.equal(2020);
+                       
+                       applicationController.addSegment(doc._id, segment, function(err, doc) {
+                           should.not.exist(err);
+                           should.exist(doc); 
+                           doc.Segments.length.should.equal(1);
+                           doc.Segments[0].StartDate.getFullYear().should.equal(2020);
+                           done();
+                        });
+                    });
+                }
+            });
+        });
+    });
+
+    describe('#removeSegment()', function () {
+
+        afterEach(function (done) {
+            Application.remove({ Name: "test" }, function () {
+                done();
+            });
+        });
+
+        it('Should remove a staff member from an application ', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var segment = new Object();
+            segment.StartDate = new Date('1/15/2020');
+            segment.EndDate = new Date('1/22/2020');
+            segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+
+                    applicationController.addSegment(doc._id, segment, function(err, doc) {
+                       should.not.exist(err);
+                       should.exist(doc); 
+                       doc.Segments.length.should.equal(1);
+                       doc.Segments[0].StartDate.getFullYear().should.equal(2020);
+                       applicationController.removeSegment(doc._id, segment.StartDate, function(err, doc) {
+                           should.not.exist(err);
+                           should.exist(doc); 
+                           doc.Segments.length.should.equal(0);
+                           done();
+                       });
+                    });
+                }
+            });
+        });
+
+        it('Should return the application even if the segment isnt added to it', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            var segment = new Object();
+            segment.StartDate = new Date('1/15/2020');
+            segment.EndDate = new Date('1/22/2020');
+            segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    should.exist(doc);
+                    doc.Staff.length.should.equal(0);
+
+                    applicationController.removeSegment(doc._id, segment.StartDate, function(err, doc) {
+                        should.not.exist(err);
+                        should.exist(doc); 
+                        doc.Segments.length.should.equal(0);
+                        done();
                     });
                 }
             });
