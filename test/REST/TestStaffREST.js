@@ -121,6 +121,10 @@ var assert = require("assert"),
                 staffToAdd.Name = "testStaff";
                 staffToAdd.Primary = "666-666-6666";
 
+                var staffToAdd2 = new Object();
+                staffToAdd2.Name = "testStaff2";
+                staffToAdd2.Primary = "777-777-7777";
+
                 applicationController.add(toAdd, function (err, doc) {
                     //check that there is no error
                     should.not.exist(err);
@@ -137,23 +141,32 @@ var assert = require("assert"),
                             should.exist(doc);
                             doc.should.be.an('object');
                             doc.Staff.length.should.equal(1);
+                            staffController.add(staffToAdd2, function (err, staff) {
+                                applicationController.addToStaff(doc._id, staff, function (err, doc) {
+                                    //check that there is no error
+                                    should.not.exist(err);
+                                    should.exist(doc);
+                                    doc.should.be.an('object');
+                                    doc.Staff.length.should.equal(2);
 
-                            request(app)
-                            .get('/api/applications/test/staff/666-666-6666/')
-                            .expect('Content-Type', /json/)
-                            .expect(200) //Status code
-                            .end(function (err, res) {
-                                if (err) {
-                                    throw err;
-                                }
-                                // Should.js fluent syntax applied
-                                res.body.should.have.property('results');
-                                res.body.Status.should.equal('Success');
-                                Object.prototype.toString.call(res.body.results).should.not.equal('[object Array]');
-                                var retStaff = res.body.results;
-                                retStaff.Name.should.equal(staffToAdd.Name);
-                                retStaff.Primary.should.equal('(666) 666-6666');
-                                done();
+                                    request(app)
+                                    .get('/api/applications/test/staff/666-666-6666/')
+                                    .expect('Content-Type', /json/)
+                                    .expect(200) //Status code
+                                    .end(function (err, res) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        // Should.js fluent syntax applied
+                                        res.body.should.have.property('results');
+                                        res.body.Status.should.equal('Success');
+                                        Object.prototype.toString.call(res.body.results).should.not.equal('[object Array]');
+                                        var retStaff = res.body.results;
+                                        retStaff.Name.should.equal(staffToAdd.Name);
+                                        retStaff.Primary.should.equal('(666) 666-6666');
+                                        done();
+                                    });
+                                });
                             });
                         });
                     });
