@@ -42,7 +42,7 @@ describe('ApplicationController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Phone, "555-555-5555");
+                assert.equal(doc.Phone, "(555) 555-5555");
                 done();
             });
         });
@@ -106,7 +106,7 @@ describe('ApplicationController', function () {
                         doc.should.be.an('object');
                         //test the data
                         assert.equal(doc.Name, "test");
-                        assert.equal(doc.Phone, "555-555-5555");
+                        assert.equal(doc.Phone, "(555) 555-5555");
                         done();
                     });
                 }
@@ -205,14 +205,14 @@ describe('ApplicationController', function () {
 
             applicationController.add(toAdd, function (err, doc) {
                 if (!err) {
-                    applicationController.findByPhone("555-555-5555", function (err, doc) {
+                    applicationController.findByPhone("(555) 555-5555", function (err, doc) {
                         //check that there is no error
                         should.not.exist(err);
                         should.exist(doc);
                         doc.should.be.an('object');
                         //test the data
                         assert.equal(doc.Name, "test");
-                        assert.equal(doc.Phone, "555-555-5555");
+                        assert.equal(doc.Phone, "(555) 555-5555");
                         done();
                     });
                 }
@@ -235,10 +235,10 @@ describe('ApplicationController', function () {
 
             applicationController.add(toAdd, function (err, doc) {
                 if (!err) {
-                    applicationController.removeByPhone("555-555-5555", function (err) {
+                    applicationController.removeByPhone("(555) 555-5555", function (err) {
                         //check that there is no error
                         should.not.exist(err);
-                        applicationController.findByPhone("555-555-5555", function (err, doc) {
+                        applicationController.findByPhone("(555) 555-5555", function (err, doc) {
                             //check that there is no error
                             should.not.exist(err);
                             //Check that doc is a null since it no longer exists in the database.
@@ -273,7 +273,7 @@ describe('ApplicationController', function () {
                         doc.should.be.an('object');
                         //test the data
                         assert.equal(doc.Name, "test");
-                        assert.equal(doc.Phone, "555-555-5555");
+                        assert.equal(doc.Phone, "(555) 555-5555");
                         done();
                     });
                 }

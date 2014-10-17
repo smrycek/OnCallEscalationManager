@@ -42,7 +42,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
                 done();
             });
         });
@@ -68,7 +68,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
 
                 staffController.findByID(doc._id, function (err, doc) {
                     //check that there is no error
@@ -77,7 +77,7 @@ describe('StaffController', function () {
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Primary, "555-555-5555");
+                    assert.equal(doc.Primary, "(555) 555-5555");
                     done()
                 });
             });
@@ -104,7 +104,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
 
                 staffController.findByPhone(doc.Primary, function (err, doc) {
                     //check that there is no error
@@ -113,7 +113,7 @@ describe('StaffController', function () {
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Primary, "555-555-5555");
+                    assert.equal(doc.Primary, "(555) 555-5555");
                     done()
                 });
             });
@@ -140,7 +140,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
 
                 staffController.findByPhoneAndName(doc.Primary, doc.Name, function (err, doc) {
                     //check that there is no error
@@ -149,7 +149,7 @@ describe('StaffController', function () {
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Primary, "555-555-5555");
+                    assert.equal(doc.Primary, "(555) 555-5555");
                     done()
                 });
             });
@@ -176,7 +176,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
 
                 staffController.staffExists(doc.Primary, doc.Name, function (err, exists) {
                     //check that there is no error
@@ -199,7 +199,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
 
                 staffController.staffExists(doc.Primary, 'test2', function (err, exists) {
                     //check that there is no error
@@ -233,7 +233,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
                 _id = doc._id;
                 staffController.removeByID(doc._id, function (err) {
                     //check that there is no error
@@ -270,7 +270,7 @@ describe('StaffController', function () {
                 doc.should.be.an('object');
                 //test the data
                 assert.equal(doc.Name, "test");
-                assert.equal(doc.Primary, "555-555-5555");
+                assert.equal(doc.Primary, "(555) 555-5555");
                 primary = doc.Primary;
                 staffController.removeByPhone(doc.Primary, function (err) {
                     //check that there is no error

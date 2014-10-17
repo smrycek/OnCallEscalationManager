@@ -45,11 +45,11 @@ var assert = require("assert"),
             it('should return all applications if no application name is supplied to the URL', function (done) {
                 var toAdd = new Object();
                 toAdd.Name = "test";
-                toAdd.Phone = "555-555-5555";
+                toAdd.Phone = "(555) 555-5555";
 
                 var toAdd2 = new Object();
                 toAdd2.Name = "test2";
-                toAdd2.Phone = "666-666-6666";
+                toAdd2.Phone = "(666) 666-6666";
 
                 applicationController.add(toAdd, function (err, doc) {
                     //check that there is no error
@@ -58,7 +58,7 @@ var assert = require("assert"),
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Phone, "555-555-5555");
+                    assert.equal(doc.Phone, "(555) 555-5555");
 
                     applicationController.add(toAdd2, function (err, doc) {
                         //check that there is no error
@@ -67,7 +67,7 @@ var assert = require("assert"),
                         doc.should.be.an('object');
                         //test the data
                         assert.equal(doc.Name, "test2");
-                        assert.equal(doc.Phone, "666-666-6666");
+                        assert.equal(doc.Phone, "(666) 666-6666");
 
                         request(app)
                         .get('/api/applications/')
@@ -97,7 +97,7 @@ var assert = require("assert"),
             it('should return a single application if a name is supplied to the URL', function (done) {
                 var toAdd = new Object();
                 toAdd.Name = "test";
-                toAdd.Phone = "555-555-5555";
+                toAdd.Phone = "(555) 555-5555";
 
                 applicationController.add(toAdd, function (err, doc) {
                     //check that there is no error
@@ -106,7 +106,7 @@ var assert = require("assert"),
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Phone, "555-555-5555");
+                    assert.equal(doc.Phone, "(555) 555-5555");
 
                     request(app)
                     .get('/api/applications/test')
@@ -226,7 +226,7 @@ var assert = require("assert"),
 
                 var toAdd = new Object();
                 toAdd.Name = "test";
-                toAdd.Phone = "555-555-5555";
+                toAdd.Phone = "(555) 555-5555";
 
                 var application = {
                     Name: 'test',
@@ -241,7 +241,7 @@ var assert = require("assert"),
                     doc.should.be.an('object');
                     //test the data
                     assert.equal(doc.Name, "test");
-                    assert.equal(doc.Phone, "555-555-5555");
+                    assert.equal(doc.Phone, "(555) 555-5555");
 
                     request(app)
                     .post('/api/applications/')

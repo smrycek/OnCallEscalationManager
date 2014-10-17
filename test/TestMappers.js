@@ -11,11 +11,11 @@ describe('ApplicationMapper', function () {
             var obj, mappedApplication;
             obj = new Object();
             obj.Name = "test";
-            obj.Phone = "555-555-5555";
+            obj.Phone = "(555) 555-5555";
 
             mappedApplication = applicationMapper.mapModel(obj);
             mappedApplication.Name.should.equal("test");
-            mappedApplication.Phone.should.equal("555-555-5555");
+            mappedApplication.Phone.should.equal("(555) 555-5555");
             mappedApplication.Segments.length.should.equal(0);
             mappedApplication.Staff.length.should.equal(0);
         });
@@ -24,7 +24,7 @@ describe('ApplicationMapper', function () {
             var obj, mappedApplication;
             obj = new Object();
             obj.Name = "test";
-            obj.Phone = "555-555-5555";
+            obj.Phone = "(555) 555-5555";
             obj.Fallback = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
             obj.Staff = [
                 new mongoose.Types.ObjectId('540e2b0caddc924830899aa7')
@@ -33,7 +33,7 @@ describe('ApplicationMapper', function () {
 
             mappedApplication = applicationMapper.mapModel(obj);
             mappedApplication.Name.should.equal("test");
-            mappedApplication.Phone.should.equal("555-555-5555");
+            mappedApplication.Phone.should.equal("(555) 555-5555");
             mappedApplication.Fallback.toString().should.equal(new mongoose.Types.ObjectId('540e2b0caddc924830899aa7').toString());
             mappedApplication.Segments.length.should.equal(0);
             mappedApplication.Staff.length.should.equal(1);
@@ -47,11 +47,11 @@ describe('StaffMapper', function () {
             var obj, mappedStaff;
             obj = new Object();
             obj.Name = "test";
-            obj.Primary = "555-555-5555";
+            obj.Primary = "(555) 555-5555";
 
             mappedStaff = staffMapper.mapModel(obj);
             assert.equal(mappedStaff.Name, "test");
-            assert.equal(mappedStaff.Primary, "555-555-5555");
+            assert.equal(mappedStaff.Primary, "(555) 555-5555");
         });
     });
 });
