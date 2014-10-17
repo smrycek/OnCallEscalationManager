@@ -131,3 +131,30 @@
     padding-top: 2px;
     padding-bottom:  2px;
 }
+
+.squareCorners {
+    border-radius: 0px;
+}
+
+.segmentList {
+    margin-bottom: 0px;
+    border: none;
+}
+
+.segmentItem {
+    border-top-style: solid;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.segmentItem:first-child {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border: none;
+}
+
+.segmentItem:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
