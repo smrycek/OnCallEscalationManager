@@ -14,3 +14,7 @@ notifications:
       - shpatel5@ncsu.edu
     on_success: change
     on_failure: always
+deploy:
+  provider: heroku
+  api_key: 7b1fcf62-bf4b-4f5f-88d2-a282c5050456
+  app: on-call-escalation-manager

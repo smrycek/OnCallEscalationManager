@@ -439,8 +439,6 @@ var assert = require("assert"),
                     assert.equal(doc.Phone, "(555) 555-5555");
 
                     staffController.add(staffToAdd2, function (err, staff) {
-                        console.log(staff);
-
                         request(app)
                         .post('/api/applications/test/staff/')
                         .send(staffToAdd)
