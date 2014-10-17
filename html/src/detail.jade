@@ -144,8 +144,10 @@ div
                                             i.fa.fa-times.pull-right.mediumIcon.BWGray(tooltip-placement="right", tooltip="Remove Segment")
                                     i.fa.fa-pencil.pull-right.mediumIcon.BWGray(tooltip-placement="left", tooltip="Edit Segment")
                                 div.col-xs-12.col-md-2(style="height:100%;")
-                                    p Start Date: {{segment.StartDate | date:'MM/dd/yyyy'}}
-                                    p End Date: {{segment.EndDate | date:'MM/dd/yyyy'}}
+                                    div
+                                        span Start Date: {{segment.StartDate | date:'MM/dd/yyyy'}}
+                                    div
+                                        span End Date: {{segment.EndDate | date:'MM/dd/yyyy'}}
                                 div.col-xs-12.col-md-8
                                     div
                                         i.fa.fa-user.iconImage
