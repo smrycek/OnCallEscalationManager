@@ -23,26 +23,14 @@ describe('SegmentValidator', function () {
         {
             StartDate: date1,
             EndDate: date2,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
+            PrimaryStaff: "FakeID",
             SecondaryStaff: null
         },
         {
             StartDate: date3,
             EndDate: date4,
-            PrimaryStaff: {
-                _id: "FakeID2",
-                Name: "Test2",
-                Primary: "(111) 111-1111"
-            },
-            SecondaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            }
+            PrimaryStaff: "FakeID2",
+            SecondaryStaff: "FakeID"
         }
     ];
 
@@ -52,21 +40,13 @@ describe('SegmentValidator', function () {
         seg1 = {
             StartDate: date5,
             EndDate: date6,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
+            PrimaryStaff: "FakeID",
             SecondaryStaff: null
         };
         seg2 = {
             StartDate: date7,
             EndDate: date8,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
+            PrimaryStaff: "FakeID",
             SecondaryStaff: null
         };
         seg3 = {
@@ -78,40 +58,20 @@ describe('SegmentValidator', function () {
         seg4 = {
             StartDate: date5,
             EndDate: date6,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
-            SecondaryStaff: {
-                _id: "NotID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            }
+            PrimaryStaff: "FakeID",
+            SecondaryStaff: "NotID"
         };
         seg5 = {
             StartDate: date6,
             EndDate: date5,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
+            PrimaryStaff: "FakeID",
             SecondaryStaff: null
         };
         seg6 = {
             StartDate: date5,
             EndDate: date6,
-            PrimaryStaff: {
-                _id: "FakeID",
-                Name: "Test",
-                Primary: "(555) 555-5555"
-            },
-            SecondaryStaff: {
-                _id: "FakeID2",
-                Name: "Test2",
-                Primary: "(111) 111-1111"
-            }
+            PrimaryStaff: "FakeID",
+            SecondaryStaff: "FakeID2"
         };
         it('should take this segment as valid', function () {
             segmentValidator.validateSegment(app, seg1, function (err, newseg) {

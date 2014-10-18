@@ -70,14 +70,39 @@ function detailCtrl($scope, $http, $routeParams) {
 
         // Check if the first segment is current
         if(!appl.Segments || moment(appl.Segments[0].StartDate).isAfter(date)){
-            emptySegment.StartDate = moment();
+            emptySegment.StartDate = moment().utc();
+            emptySegment.StartDate.hour(0);
             if(appl.Segments.length > 0){
-                emptySegment.EndDate = moment(appl.Segments[0].StartDate);
+                emptySegment.EndDate = moment(appl.Segments[0].StartDate).utc();
                 emptySegment.EndDate.subtract(1, 'd');
+                emptySegment.EndDate.hour(0);
+
+                //Turn the dates in to moment objects
+                appl.Segments[0].StartDate = moment(appl.Segments[0].StartDate).utc();
+                appl.Segments[0].EndDate = moment(appl.Segments[0].EndDate).utc();
+                //Set hours back to 0
+                appl.Segments[0].StartDate.hours(0);
+                appl.Segments[0].EndDate.hours(0);
+                //Lets now create a new field on the segment to hold the string representation.
+                appl.Segments[0].StartDateString = appl.Segments[0].StartDate.format("MM/DD/YYYY");
+                appl.Segments[0].EndDateString = appl.Segments[0].EndDate.format("MM/DD/YYYY");
+                emptySegment.StartDateString = emptySegment.StartDate.format("MM/DD/YYYY");
+                emptySegment.EndDateString = emptySegment.EndDate.format("MM/DD/YYYY");
+
                 segments.push(emptySegment);
                 segments.push(appl.Segments[0]);
             } else {
-                emptySegment.EndDate = moment(appl.Segments[0].StartDate);
+                //Turn the dates in to moment objects
+                appl.Segments[0].StartDate = moment(appl.Segments[0].StartDate).utc();
+                appl.Segments[0].EndDate = moment(appl.Segments[0].EndDate).utc();
+                //Set hours back to 0
+                appl.Segments[0].StartDate.hour(0);
+                appl.Segments[0].EndDate.hour(0);
+                //Lets now create a new field on the segment to hold the string representation.
+                appl.Segments[0].StartDateString = appl.Segments[0].StartDate.format("MM/DD/YYYY");
+                appl.Segments[0].EndDateString = appl.Segments[0].EndDate.format("MM/DD/YYYY");
+
+                emptySegment.EndDate = moment(appl.Segments[0].StartDate).utc();
                 // Default to a 7 day empty segment
                 emptySegment.EndDate.add(7, 'd');
                 segments.push(emptySegment);
@@ -92,16 +117,38 @@ function detailCtrl($scope, $http, $routeParams) {
                 //csd is current start date
                 var csd = moment(appl.Segments[i].StartDate);
                 if(1 == csd.diff(ped, 'd')) {
-                    appl.Segments[i].StartDate = moment(appl.Segments[i].StartDate);
+                    //Turn the dates in to moment objects
+                    appl.Segments[i].StartDate = moment(appl.Segments[i].StartDate).utc();
+                    appl.Segments[i].EndDate = moment(appl.Segments[i].EndDate).utc();
+                    //Set hours back to 0
+                    appl.Segments[i].StartDate.hour(0);
+                    appl.Segments[i].EndDate.hour(0);
+
+                    //Lets now create a new field on the segment to hold the string representation.
+                    appl.Segments[i].StartDateString = appl.Segments[i].StartDate.format("MM/DD/YYYY");
+                    appl.Segments[i].EndDateString = appl.Segments[i].EndDate.format("MM/DD/YYYY");
+                    alert(appl.Segments[i].StartDate)
                     segments.push(appl.Segments[i]);
                 } else {
                     //prep new empty segment
                     emptySegment = new Object();
-                    emptySegment.StartDate = moment(ped.add(1, 'd'));
-                    ped.subtract(1, 'd');
+                    emptySegment.StartDate = moment(ped.add(1, 'd')).utc();
                     // cur start date to set new end date
-                    emptySegment.EndDate = moment(csd.subtract(1, 'd'));
-                    csd.add(1, 'd');
+                    emptySegment.EndDate = moment(csd.subtract(1, 'd')).utc();
+
+                    //Turn the dates in to moment objects
+                    appl.Segments[i].StartDate = moment(appl.Segments[i].StartDate).utc();
+                    appl.Segments[i].EndDate = moment(appl.Segments[i].EndDate).utc();
+
+                    //Set hours back to 0
+                    appl.Segments[i].StartDate.hour(0);
+                    appl.Segments[i].EndDate.hour(0);
+
+                    //Lets now create a new field on the segment to hold the string representation.
+                    appl.Segments[i].StartDateString = appl.Segments[i].StartDate.format("MM/DD/YYYY");
+                    appl.Segments[i].EndDateString = appl.Segments[i].EndDate.format("MM/DD/YYYY");
+                    emptySegment.StartDateString = emptySegment.StartDate.format("MM/DD/YYYY");
+                    emptySegment.EndDateString = emptySegment.EndDate.format("MM/DD/YYYY");
                     segments.push(emptySegment);
                     segments.push(appl.Segments[i]);
                 }
