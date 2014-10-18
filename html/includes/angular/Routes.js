@@ -54,11 +54,72 @@ function detailCtrl($scope, $http, $routeParams) {
     $scope.appName = $routeParams.appName;
     $scope.isCollapsed = true;
     $scope.isEditingApp = false;
+    var date = moment();
+    $scope.date = date;
+    var appl;
+    var segments = [];
+    var emptySegment = new Object();
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
         $scope.status = status;
         $scope.app = data.results;
+        appl = data.results;
+
+
+
+        // Check if the first segment is current
+        if(!appl.Segments || moment(appl.Segments[0].StartDate).isAfter(date)){
+            emptySegment.StartDate = moment();
+            if(appl.Segments.length > 0){
+                emptySegment.EndDate = moment(appl.Segments[0].StartDate);
+                emptySegment.EndDate.subtract(1, 'd');
+                segments.push(emptySegment);
+                segments.push(appl.Segments[0]);
+            } else {
+                emptySegment.EndDate = moment(appl.Segments[0].StartDate);
+                // Default to a 7 day empty segment
+                emptySegment.EndDate.add(7, 'd');
+                segments.push(emptySegment);
+            }
+        }
+        // If there are more segments lets navigate through them and add empty segments if needed.
+        if(appl.Segments.length > 0){
+            //ped is previous end date
+            var ped = moment(appl.Segments[0].EndDate);
+
+            for(var i = 1; i < appl.Segments.length; i++){
+                //csd is current start date
+                var csd = moment(appl.Segments[i].StartDate);
+                if(1 == csd.diff(ped, 'd')) {
+                    appl.Segments[i].StartDate = moment(appl.Segments[i].StartDate);
+                    segments.push(appl.Segments[i]);
+                } else {
+                    //prep new empty segment
+                    emptySegment = new Object();
+                    emptySegment.StartDate = moment(ped.add(1, 'd'));
+                    ped.subtract(1, 'd');
+                    // cur start date to set new end date
+                    emptySegment.EndDate = moment(csd.subtract(1, 'd'));
+                    csd.add(1, 'd');
+                    segments.push(emptySegment);
+                    segments.push(appl.Segments[i]);
+                }
+                //update previous end date
+                ped = moment(appl.Segments[i].EndDate);
+            }
+        }
+
+
+        //var sd = new Date(appl.Segments[appl.Segments.length -1].EndDate);
+        //var ed = new Date();
+        //ed.setTime(sd.getTime() + 5);
+        //emptySegment.StartDate = sd;
+        //emptySegment.EndDate = ed;
+        //console.log(sd);
+        //console.log(ed);
+        //segments.push(emptySegment);
+        $scope.app.Segments = segments;
     })
     .error(function(data, status) {
         $scope.app = data.results || "Request failed";

@@ -130,22 +130,25 @@ div
                                                     span.small-left-gap Cancel
                                         div.clearfix
     hr
-    //p {{app.Segments}}
+    p {{app.Segments}}
     div.row
         div.col-xs-12
             div.panel.panel-default
-                div.panel-heading Application Segments
+                div.panel-heading On Call Segments
                 div
                     ul.list-group.squareCorners.segmentList
-                        li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments | orderBy:'StartDate'")
-                            div.row
+                        li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments")
+                            div.row(ng-if="segment.PrimaryStaff == undefined")
+                                div.col-xs-12
+                                    i.fa.fa-plus-square.mediumIcon.BWGray(tooltip-placement="right", tooltip="Add Segment In Gap")
+                            div.row(ng-if="segment.PrimaryStaff")
                                 div.col-xs-12.col-md-2.pull-right
                                     div.pull-right
                                             i.fa.fa-times.pull-right.mediumIcon.BWGray(tooltip-placement="right", tooltip="Remove Segment")
                                     i.fa.fa-pencil.pull-right.mediumIcon.BWGray(tooltip-placement="left", tooltip="Edit Segment")
                                 div.col-xs-12.col-md-2(style="height:100%;")
                                     div
-                                        span Start Date: {{segment.StartDate | date:'MM/dd/yyyy'}}
+                                        span Start Date: {{segment.StartDate}}
                                     div
                                         span End Date: {{segment.EndDate | date:'MM/dd/yyyy'}}
                                 div.col-xs-12.col-md-8
