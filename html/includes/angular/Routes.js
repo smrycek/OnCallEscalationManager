@@ -66,7 +66,11 @@ function detailCtrl($scope, $http, $routeParams) {
         $scope.app = data.results;
         appl = data.results;
 
-
+        if (appl.Segments) {
+            appl.Segments.sort(function(a,b){
+                  return moment(a.StartDate).utc() - moment(b.StartDate).utc();
+            });
+        }
 
         // Check if the first segment is current
         if(!appl.Segments || moment(appl.Segments[0].StartDate).isAfter(date)){
@@ -127,7 +131,6 @@ function detailCtrl($scope, $http, $routeParams) {
                     //Lets now create a new field on the segment to hold the string representation.
                     appl.Segments[i].StartDateString = appl.Segments[i].StartDate.format("MM/DD/YYYY");
                     appl.Segments[i].EndDateString = appl.Segments[i].EndDate.format("MM/DD/YYYY");
-                    alert(appl.Segments[i].StartDate)
                     segments.push(appl.Segments[i]);
                 } else {
                     //prep new empty segment
