@@ -30,6 +30,20 @@ describe('StaffController', function () {
             });
         });
 
+        it('Should return an error if the phone number isnt valid', function(done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Primary = "555-555-555";
+
+            staffController.add(toAdd, function (err, doc) {
+                //check that there is no error
+                should.exist(err);
+                should.not.exist(doc);
+                err.message.should.equal("Number did not consist of 10 digits.");
+                done();
+            });
+        });
+
         it('Should add a new staff member to the database', function (done) {
             var toAdd = new Object();
             toAdd.Name = "test";

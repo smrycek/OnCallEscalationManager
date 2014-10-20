@@ -46,6 +46,20 @@ describe('ApplicationController', function () {
                 done();
             });
         });
+
+        it('Should return an error if the phone number is invalid', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-555";
+
+            applicationController.add(toAdd, function (err, doc) {
+                //check that there is no error
+                should.exist(err);
+                should.not.exist(doc);
+                err.message.should.equal("Number did not consist of 10 digits.")
+                done();
+            });
+        });
     });
 
     describe('#findAll()', function () {
@@ -218,6 +232,23 @@ describe('ApplicationController', function () {
                 }
             });
         });
+
+        it('Should return an error if the phone number is invalid', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    applicationController.findByPhone("(555) 555-555", function (err, doc) {
+                        should.exist(err);
+                        should.not.exist(doc);
+                        err.message.should.equal("Number did not consist of 10 digits.")
+                        done();
+                    });
+                }
+            });
+        });
     });
 
     describe('#removeByPhone()', function () {
@@ -245,6 +276,23 @@ describe('ApplicationController', function () {
                             should.not.exist(doc);
                             done();
                         });
+                    });
+                }
+            });
+        });
+
+        it('Should return an error if the phone number is invalid', function (done) {
+            var toAdd = new Object();
+            toAdd.Name = "test";
+            toAdd.Phone = "555-555-5555";
+
+            applicationController.add(toAdd, function (err, doc) {
+                if (!err) {
+                    applicationController.removeByPhone("(555) 555-555", function (err, doc) {
+                        should.exist(err);
+                        should.not.exist(doc);
+                        err.message.should.equal("Number did not consist of 10 digits.")
+                        done();
                     });
                 }
             });
