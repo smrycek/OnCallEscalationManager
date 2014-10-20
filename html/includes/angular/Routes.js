@@ -112,10 +112,11 @@ function detailCtrl($scope, $http, $routeParams) {
                 segments.push(emptySegment);
             }
         }
+        var ped;
         // If there are more segments lets navigate through them and add empty segments if needed.
         if(appl.Segments.length > 0){
             //ped is previous end date
-            var ped = moment(appl.Segments[0].EndDate);
+            ped = moment(appl.Segments[0].EndDate);
 
             for(var i = 1; i < appl.Segments.length; i++){
                 //csd is current start date
@@ -159,16 +160,16 @@ function detailCtrl($scope, $http, $routeParams) {
                 ped = moment(appl.Segments[i].EndDate);
             }
         }
-
-
-        //var sd = new Date(appl.Segments[appl.Segments.length -1].EndDate);
-        //var ed = new Date();
-        //ed.setTime(sd.getTime() + 5);
-        //emptySegment.StartDate = sd;
-        //emptySegment.EndDate = ed;
-        //console.log(sd);
-        //console.log(ed);
-        //segments.push(emptySegment);
+        //Add in the last segment
+        if(ped){
+            emptySegment = new Object();
+            emptySegment.StartDate = moment(ped.add(1, 'd')).utc();
+            emptySegment.EndDate = moment(ped.add(7, 'd')).utc();
+            emptySegment.StartDateString = emptySegment.StartDate.format("MM/DD/YYYY");
+            emptySegment.EndDateString = emptySegment.EndDate.format("MM/DD/YYYY");
+            segments.push(emptySegment);
+        }
+        //finish up by setting the Segments to equal the new fully filled list of segments.
         $scope.app.Segments = segments;
     })
     .error(function(data, status) {

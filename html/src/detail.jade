@@ -130,7 +130,6 @@ div
                                                     span.small-left-gap Cancel
                                         div.clearfix
     hr
-    p {{app.Segments}}
     div.row
         div.col-xs-12
             div.panel.panel-default
@@ -139,8 +138,8 @@ div
                     ul.list-group.squareCorners.segmentList
                         li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments")
                             div.row(ng-if="segment.PrimaryStaff == undefined")
-                                div.col-xs-12
-                                    i.fa.fa-plus-square.mediumIcon.BWGray(tooltip-placement="right", tooltip="Add Segment In Gap")
+                                div.col-xs-12.emptySegment
+                                    i.fa.fa-plus-square.largeIcon.BWGray(tooltip-placement="right", tooltip="Add Segment In Gap")
                             div.row(ng-if="segment.PrimaryStaff")
                                 div.col-xs-12.col-md-2.pull-right
                                     div.pull-right

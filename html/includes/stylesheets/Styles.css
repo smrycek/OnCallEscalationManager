@@ -62,9 +62,13 @@
     font-size: 48px;
 }
 
-.bigIcon:hover, .mediumIcon:hover, .smallIcon:hover {
+.bigIcon:hover, .mediumIcon:hover, .smallIcon:hover, .largeIcon:hover {
     color: #63B1E5;
     cursor: pointer;
+}
+
+.largeIcon {
+    font-size: 40px;
 }
 
 .mediumIcon {
@@ -157,4 +161,8 @@
 .segmentItem:last-child {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+
+.emptySegment {
+    text-align: center;
 }
