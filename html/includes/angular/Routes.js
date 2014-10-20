@@ -9,6 +9,7 @@ OCEM.controller('removeModalCtrl', ['$scope', '$modalInstance', removeModalCtrl]
 OCEM.controller('editAppCtrl', ['$scope', '$http', '$route', '$routeParams', editAppCtrl]);
 OCEM.controller('editStaffCtrl', ['$scope', '$http', '$route', '$routeParams', editStaffCtrl]);
 OCEM.controller('removeStaffCtrl', ['$scope', '$http', '$route', '$routeParams', removeStaffCtrl]);
+OCEM.controller('segmentCtrl', ['$scope', '$http', '$modal', '$route', '$routeParams', segmentCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -46,7 +47,7 @@ function indexCtrl($scope, $http) {
         $scope.apps = data.results || "Request failed";
         $scope.status = status;
     });
-};
+}
 
 function detailCtrl($scope, $http, $routeParams) {
     $scope.method = 'GET';
@@ -73,10 +74,10 @@ function detailCtrl($scope, $http, $routeParams) {
         }
 
         // Check if the first segment is current
-        if(!appl.Segments || moment(appl.Segments[0].StartDate).isAfter(date)){
+        if(!appl.Segments || appl.Segments.length == 0 || moment(appl.Segments[0].StartDate).isAfter(date)){
             emptySegment.StartDate = moment().utc();
             emptySegment.StartDate.hour(0);
-            if(appl.Segments.length > 0){
+            if(appl.Segments && appl.Segments.length > 0){
                 emptySegment.EndDate = moment(appl.Segments[0].StartDate).utc();
                 emptySegment.EndDate.subtract(1, 'd');
                 emptySegment.EndDate.hour(0);
@@ -96,19 +97,13 @@ function detailCtrl($scope, $http, $routeParams) {
                 segments.push(emptySegment);
                 segments.push(appl.Segments[0]);
             } else {
-                //Turn the dates in to moment objects
-                appl.Segments[0].StartDate = moment(appl.Segments[0].StartDate).utc();
-                appl.Segments[0].EndDate = moment(appl.Segments[0].EndDate).utc();
-                //Set hours back to 0
-                appl.Segments[0].StartDate.hour(0);
-                appl.Segments[0].EndDate.hour(0);
-                //Lets now create a new field on the segment to hold the string representation.
-                appl.Segments[0].StartDateString = appl.Segments[0].StartDate.format("MM/DD/YYYY");
-                appl.Segments[0].EndDateString = appl.Segments[0].EndDate.format("MM/DD/YYYY");
-
-                emptySegment.EndDate = moment(appl.Segments[0].StartDate).utc();
+                emptySegment.EndDate = moment(emptySegment.StartDate).utc();
                 // Default to a 7 day empty segment
                 emptySegment.EndDate.add(7, 'd');
+                emptySegment.EndDate.hour(0);
+                //Lets now create a new field on the segment to hold the string representation.
+                emptySegment.StartDateString = emptySegment.StartDate.format("MM/DD/YYYY");
+                emptySegment.EndDateString = emptySegment.EndDate.format("MM/DD/YYYY");
                 segments.push(emptySegment);
             }
         }
@@ -176,7 +171,7 @@ function detailCtrl($scope, $http, $routeParams) {
         $scope.app = data.results || "Request failed";
         $scope.status = status;
     });
-};
+}
 
 function newAppCtrl($scope, $http, $route) { 
     $scope.form = {};
@@ -202,7 +197,7 @@ function newAppCtrl($scope, $http, $route) {
         $scope.form.appName = "";
         $scope.form.appPhone = "";
     };
-};
+}
 
 function newStaffCtrl($scope, $http, $route, $routeParams){
     $scope.form = {};
@@ -222,7 +217,7 @@ function newStaffCtrl($scope, $http, $route, $routeParams){
             alert(data.Message);
         });
     };
-};
+}
 
 function removeAppCtrl($scope, $http, $modal, $routeParams, $location) {
     $scope.open = function (size) {
@@ -243,7 +238,7 @@ function removeAppCtrl($scope, $http, $modal, $routeParams, $location) {
             });
         });
     }
-};
+}
 
 function removeModalCtrl($scope, $modalInstance){
     $scope.ok = function () {
@@ -253,7 +248,7 @@ function removeModalCtrl($scope, $modalInstance){
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-};
+}
 
 function editAppCtrl($scope, $http, $route, $routeParams){
     $scope.form = {};
@@ -292,7 +287,7 @@ function editAppCtrl($scope, $http, $route, $routeParams){
     $scope.getStaffString = function(staff) {
         return staff.Name + " - " + staff.Primary;
     }
-};
+}
 
 function editStaffCtrl($scope, $http, $route, $routeParams){
     $scope.isEditingStaff = false;
@@ -313,7 +308,7 @@ function editStaffCtrl($scope, $http, $route, $routeParams){
         });
     };
 
-};
+}
 
 function removeStaffCtrl($scope, $http, $route, $routeParams){
 
@@ -327,4 +322,25 @@ function removeStaffCtrl($scope, $http, $route, $routeParams){
         });
     };
 
-};
+}
+
+function segmentCtrl($scope, $http, $modal, $route, $routeParams){
+    $scope.isSegmentActive = false;
+    $scope.form = {};
+
+    $scope.removeSegment = function () {
+
+    };
+
+    $scope.addSegment = function () {
+
+    };
+
+    $scope.editSegment = function () {
+
+    };
+
+    $scope.getStaffString = function(staff) {
+        return staff.Name + " - " + staff.Primary;
+    }
+}

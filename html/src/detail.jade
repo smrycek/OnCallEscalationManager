@@ -138,8 +138,38 @@ div
                     ul.list-group.squareCorners.segmentList
                         li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments")
                             div.row(ng-if="segment.PrimaryStaff == undefined")
-                                div.col-xs-12.emptySegment
-                                    i.fa.fa-plus-square.largeIcon.BWGray(tooltip-placement="right", tooltip="Add Segment In Gap")
+                                form.form(name="addsegment", ng-controller="segmentCtrl", ng-submit="form.addSegment()")
+                                    div.col-xs-12.emptySegment(ng-show="!isSegmentActive")
+                                        i.fa.fa-plus-square.largeIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="right", tooltip="Add Segment In Gap")
+                                    div.col-xs-12(ng-show="isSegmentActive")
+                                        div.row
+                                            div.col-xs-12.col-md-2(style="height:100%;")
+                                                div
+                                                    span Start Date:
+                                                        input(type="text")
+                                                div
+                                                    span End Date:
+                                                        input(type="text")
+                                            div.col-xs-12.col-md-8
+                                                div
+                                                    i.fa.fa-user.iconImage
+                                                    span Primary:
+                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                                            option(style="display:none", value="") Select a Fallback Staffer
+                                                div
+                                                    i.fa.fa-user.iconImage
+                                                    span Secondary:
+                                                        select.form-control(name="SecondaryStaffer", ng-model="form.SecondaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
+                                                            option(style="display:none", value="") Select a Fallback Staffer
+                                        div.row
+                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
+                                                button(type="submit", style="border:none; width:100%;")
+                                                    i.fa.fa-check
+                                                    span.small-left-gap Submit
+                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
+                                                button(type="button", style="border:none; width:100%;", ng-click="form.empty(); isSegmentActive = !isSegmentActive")
+                                                    i.fa.fa-times
+                                                    span.small-left-gap Cancel
                             div.row(ng-if="segment.PrimaryStaff")
                                 div.col-xs-12.col-md-2.pull-right
                                     div.pull-right
