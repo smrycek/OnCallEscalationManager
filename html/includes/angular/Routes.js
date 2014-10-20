@@ -328,6 +328,17 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams){
     $scope.isSegmentActive = false;
     $scope.form = {};
 
+    $scope.dateOptions = {
+        showWeeks: false,
+        showButtonBar: false,
+    };
+
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.opened = true;
+    };
+
     $scope.removeSegment = function () {
 
     };

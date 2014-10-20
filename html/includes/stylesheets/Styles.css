@@ -166,3 +166,8 @@
 .emptySegment {
     text-align: center;
 }
+
+.segSubmit, .segCancel{
+    width: 100%;
+    padding: 0px;
+}
