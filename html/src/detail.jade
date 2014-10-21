@@ -144,29 +144,45 @@ div
                                     div.col-xs-12(ng-show="isSegmentActive")
                                         div.row(style="margin-bottom: 10px;")
                                             div.col-xs-12.col-md-2(style="height:100%;")
-                                                div
-                                                    span Start Date:
-                                                        p.input-group
-                                                            input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="'10/10/2014'", ng-model="form.StartDate", is-open="opened", datepicker-options="dateOptions", date-disabled="disabled(date, mode)", ng-required="true", close-text="Close")
-                                                            span.input-group-btn
-                                                                button.btn.btn-default(type="button", ng-click="open($event)")
-                                                                    i.fa.fa-calendar.BWGray
-                                                div
-                                                    span End Date:
-                                                        p.input-group
-                                                            input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="'10/10/2014'", ng-model="form.StartDate", is-open="opened", datepicker-options="dateOptions", date-disabled="disabled(date, mode)", ng-required="true", close-text="Close")
-                                                            span.input-group-btn
-                                                                button.btn.btn-default(type="button", ng-click="open($event)")
-                                                                    i.fa.fa-calendar.BWGray
-                                            div.col-xs-12.col-md-8
-                                                div
-                                                    i.fa.fa-user.iconImage
-                                                    span Primary:
-                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                                div.row(style="margin-bottom:15px;")
+                                                    div.col-xs-12.col-md-4
+                                                        span Start Date:
+                                                    div.col-xs-12.col-md-8.input-group(ng-if="!$last")
+                                                        input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="$parent.segment.StartDateString",max-date="$parent.segment.EndDateString", ng-init="form.StartDate = $parent.segment.StartDateString", ng-model="form.StartDate", is-open="datepickers.StartOpen", datepicker-options="dateOptions", ng-required="true")
+                                                        span.input-group-btn
+                                                            button.btn.btn-default(type="button", ng-click="open($event, 'StartOpen')")
+                                                                i.fa.fa-calendar.BWGray
+                                                    div.col-xs-12.col-md-8.input-group(ng-if="$last")
+                                                        input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="$parent.segment.StartDateString", ng-init="form.StartDate = $parent.segment.StartDateString", ng-model="form.StartDate", is-open="datepickers.StartOpen", datepicker-options="dateOptions", ng-required="true")
+                                                        span.input-group-btn
+                                                            button.btn.btn-default(type="button", ng-click="open($event, 'StartOpen')")
+                                                                i.fa.fa-calendar.BWGray
+                                                div.row
+                                                    div.col-xs-12.col-md-4
+                                                        span End Date:
+                                                    div.col-xs-12.col-md-8.input-group(ng-if="!$last")
+                                                        input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="$parent.segment.StartDateString",max-date="$parent.segment.EndDateString", ng-init="form.EndDate = $parent.segment.EndDateString", ng-model="form.EndDate", is-open="datepickers.EndOpen", datepicker-options="dateOptions", ng-required="true")
+                                                        span.input-group-btn
+                                                            button.btn.btn-default(type="button", ng-click="open($event, 'EndOpen')")
+                                                                i.fa.fa-calendar.BWGray
+                                                    div.col-xs-12.col-md-8.input-group(ng-if="$last")
+                                                        input.form-control(type="text", datepicker-popup="MM/dd/yyyy", show-button-bar="false", min-date="$parent.segment.StartDateString", ng-init="form.EndDate = $parent.segment.EndDateString", ng-model="form.EndDate", is-open="datepickers.EndOpen", datepicker-options="dateOptions", ng-required="true")
+                                                        span.input-group-btn
+                                                            button.btn.btn-default(type="button", ng-click="open($event, 'EndOpen')")
+                                                                i.fa.fa-calendar.BWGray
+                                            div.col-xs-12.col-md-4(style="height:100%;")
+                                                div.row(style="margin-bottom:15px;")
+                                                    div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
+                                                        i.fa.fa-user.iconImage
+                                                        span Primary:
+                                                    div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
+                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
                                                             option(style="display:none", value="") Select a Primary Staffer
-                                                div
-                                                    i.fa.fa-user.iconImage
-                                                    span Secondary:
+                                                div.row
+                                                    div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
+                                                        i.fa.fa-user.iconImage
+                                                        span Secondary:
+                                                    div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
                                                         select.form-control(name="SecondaryStaffer", ng-model="form.SecondaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
                                                             option(style="display:none", value="") Select a Secondary Staffer
                                         div.row
@@ -175,24 +191,67 @@ div
                                                     i.fa.fa-check
                                                     span.small-left-gap Submit
                                             div.col-xs-12.col-md-6.BWGray.hoverBluePointer
-                                                button.segCancel(type="button", ng-click="form.empty(); isSegmentActive = !isSegmentActive")
+                                                button.segCancel(type="button", ng-click="form.StartDate = null; form.EndDate = null; form.SecondaryStaffer = null; form.PrimaryStaffer = null; form.empty(); isSegmentActive = !isSegmentActive")
                                                     i.fa.fa-times
                                                     span.small-left-gap Cancel
                             div.row(ng-if="segment.PrimaryStaff")
-                                div.col-xs-12.col-md-2.pull-right
-                                    div.pull-right
-                                            i.fa.fa-times.pull-right.mediumIcon.BWGray(tooltip-placement="right", tooltip="Remove Segment")
-                                    i.fa.fa-pencil.pull-right.mediumIcon.BWGray(tooltip-placement="left", tooltip="Edit Segment")
-                                div.col-xs-12.col-md-2(style="height:100%;")
-                                    div
-                                        span Start Date: {{segment.StartDateString}}
-                                    div
-                                        span End Date: {{segment.EndDateString}}
-                                div.col-xs-12.col-md-8
-                                    div
-                                        i.fa.fa-user.iconImage
-                                        span Primary: {{segment.PrimaryStaff.Name}}
-                                    div
-                                        i.fa.fa-user.iconImage
-                                        span Secondary: {{segment.SecondaryStaff.Name}}
+                                form.form(name="editRemoveSegment", ng-controller="segmentCtrl", ng-submit="form.editSegment()")
+                                    div.col-xs-12
+                                        div.row
+                                            div.col-xs-12.col-md-2.pull-right
+                                                div.pull-right
+                                                        i.fa.fa-times.pull-right.mediumIcon.BWGray(ng-click="removeSegment()", tooltip-placement="right", tooltip="Remove Segment")
+                                                            script(type="text/ng-template", id="removeSegmentModal.jade")
+                                                                div.modal-header
+                                                                    h3.modal-title Do you really want to delete this segment?
+                                                                div.modal-footer
+                                                                    button.btn.btn-success(ng-click="ok()") Yes
+                                                                    button.btn.btn-danger(ng-click="cancel()") No
+                                                i.fa.fa-pencil.pull-right.mediumIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="left", tooltip="Edit Segment")
+                                            div.col-xs-12.col-md-2(style="height:100%;")
+                                                div(ng-show="!isSegmentActive")
+                                                    span Start Date: {{segment.StartDateString}}
+                                                div(ng-show="!isSegmentActive")
+                                                    span End Date: {{segment.EndDateString}}
+                                                div.row(ng-show="isSegmentActive", style="margin-bottom:15px;")
+                                                    div.col-xs-12.col-md-4
+                                                        span Start Date:
+                                                    div.col-xs-12.col-md-8
+                                                        span {{segment.StartDateString}}
+                                                div.row(ng-show="isSegmentActive")
+                                                    div.col-xs-12.col-md-4
+                                                        span End Date:
+                                                    div.col-xs-12.col-md-8
+                                                        span {{segment.EndDateString}}
+                                            div.col-xs-12.col-md-4
+                                                div(ng-show="!isSegmentActive")
+                                                    i.fa.fa-user.iconImage
+                                                    span Primary: {{segment.PrimaryStaff.Name}}
+                                                div(ng-show="!isSegmentActive")
+                                                    i.fa.fa-user.iconImage
+                                                    span Secondary: {{segment.SecondaryStaff.Name}}
+                                                div.row(ng-show="isSegmentActive", style="margin-bottom:15px;")
+                                                    div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
+                                                        i.fa.fa-user.iconImage
+                                                        span Primary:
+                                                    div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
+                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                                            option(style="display:none", value="") Select a Primary Staffer
+                                                div.row(ng-show="isSegmentActive")
+                                                    div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
+                                                        i.fa.fa-user.iconImage
+                                                        span Secondary:
+                                                    div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
+                                                        select.form-control(name="SecondaryStaffer", ng-model="form.SecondaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
+                                                            option(style="display:none", value="") Select a Secondary Staffer
+                                            div.col-md-4.col-xs-12
+                                        div.row(ng-show="isSegmentActive", style="margin-top: 10px;")
+                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
+                                                button.segSubmit(type="submit")
+                                                    i.fa.fa-check
+                                                    span.small-left-gap Submit
+                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
+                                                button.segCancel(type="button", ng-click="form.StartDate = null; form.EndDate = null; form.SecondaryStaffer = null; form.PrimaryStaffer = null; form.empty(); isSegmentActive = !isSegmentActive")
+                                                    i.fa.fa-times
+                                                    span.small-left-gap Cancel
     div.clearfix

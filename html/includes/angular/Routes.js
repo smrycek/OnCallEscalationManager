@@ -330,17 +330,43 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams){
 
     $scope.dateOptions = {
         showWeeks: false,
-        showButtonBar: false,
+        showButtonBar: false
     };
 
-    $scope.open = function($event) {
+    $scope.datepickers = {
+        StartOpen: false,
+        EndOpen: false
+    };
+
+    $scope.open = function($event, which) {
         $event.preventDefault();
         $event.stopPropagation();
-        $scope.opened = true;
+        $scope.closeAll();
+        $scope.datepickers[which]= true;
     };
 
-    $scope.removeSegment = function () {
+    $scope.closeAll = function() {
+        $scope.datepickers.StartOpen = false;
+        $scope.datepickers.EndOpen = false;
+    };
 
+    $scope.removeSegment = function (size) {
+        var modalInstance = $modal.open({
+            templateUrl: 'removeSegmentModal.jade',
+            controller: 'removeModalCtrl',
+            size: size
+        });
+
+        modalInstance.result.then(function () {
+            alert("segment deleted!");
+            //var responsePromise = $http.delete("/api/applications/" + $routeParams.appName, {});
+            //responsePromise.success(function (data, status) {
+            //    $location.path("/");
+            //});
+            //responsePromise.error(function (data, status) {
+            //    alert(data.Message);
+            //});
+        });
     };
 
     $scope.addSegment = function () {
