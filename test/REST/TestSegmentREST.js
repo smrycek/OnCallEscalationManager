@@ -7,7 +7,8 @@ var assert = require("assert"),
     app = require('../../app.js'),
     server = "",
     applicationController = require('../../lib/controllers/ApplicationController.js'),
-    Application = require('../../lib/models/Application.js');
+    Application = require('../../lib/models/Application.js'),
+    moment = require('moment');
 
 
     describe('Segments REST APIs', function () {
@@ -48,14 +49,14 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-12-2015");
-                segmentToAdd.EndDate = new Date("05-19-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-12-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-19-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
 
                 var segmentToAdd2 = new Object();
-                segmentToAdd2.StartDate = new Date("05-20-2015");
-                segmentToAdd2.EndDate = new Date("05-27-2015");
+                segmentToAdd2.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd2.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd2.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7')
                 segmentToAdd2.SecondaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa8')
 
@@ -110,13 +111,13 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-12-2015");
-                segmentToAdd.EndDate = new Date("05-19-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-12-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-19-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
                 var segmentToAdd2 = new Object();
-                segmentToAdd2.StartDate = new Date("05-20-2015");
-                segmentToAdd2.EndDate = new Date("05-27-2015");
+                segmentToAdd2.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd2.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd2.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
                 segmentToAdd2.SecondaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa8');
 
@@ -229,7 +230,7 @@ var assert = require("assert"),
 
                 var segmentToAdd = new Object();
                 //segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913312';
 
@@ -266,7 +267,7 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
                 //segmentToAdd.EndDate = new Date("05-27-2015");
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913312';
@@ -304,8 +305,8 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 //segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913312';
 
@@ -342,8 +343,8 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913312';
 
@@ -380,8 +381,8 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '919491331';
                 segmentToAdd.SecondaryStaff = '9194913313';
 
@@ -418,8 +419,8 @@ var assert = require("assert"),
                 toAdd.Phone = "555-555-5555";
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913313';
 
@@ -460,8 +461,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '919491331';
 
@@ -512,8 +513,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913312';
 
@@ -564,8 +565,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-27-2015");
-                segmentToAdd.EndDate = new Date("05-20-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-27-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-20-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913313';
 
@@ -617,8 +618,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
 
                 applicationController.add(toAdd, function (err, doc) {
@@ -671,8 +672,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
                 segmentToAdd.PrimaryStaff = '9194913313';
                 segmentToAdd.SecondaryStaff = '9194913313';
 
@@ -748,8 +749,8 @@ var assert = require("assert"),
                 staffToAdd2.Primary = '9195645644';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
 
                 applicationController.add(toAdd, function (err, doc) {
                     staffController.add(staffToAdd, function (err, staff) {
@@ -996,8 +997,8 @@ var assert = require("assert"),
                 staffToAdd.Primary = '9194913313';
 
                 var segmentToAdd = new Object();
-                segmentToAdd.StartDate = new Date("05-20-2015");
-                segmentToAdd.EndDate = new Date("05-27-2015");
+                segmentToAdd.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                segmentToAdd.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
 
                 applicationController.add(toAdd, function (err, doc) {
                     staffController.add(staffToAdd, function (err, staff) {
@@ -1026,8 +1027,8 @@ var assert = require("assert"),
                     res.body.Status.should.equal('Success');
 
                     var segmentToFind = new Object();
-                    segmentToFind.StartDate = new Date("05-20-2015");
-                    segmentToFind.EndDate = new Date("05-27-2015");
+                    segmentToFind.StartDate = new moment(new Date("05-20-2015")).utc().hour(0);
+                    segmentToFind.EndDate = new moment(new Date("05-27-2015")).utc().hour(0);
 
                     applicationController.containsSegment(appID, segmentToFind, function(err, exists) {
                         exists.should.be.false;

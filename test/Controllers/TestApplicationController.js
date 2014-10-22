@@ -3,7 +3,8 @@ var assert = require("assert"),
     should = require('chai').should(),
     nconf = require('nconf'),
     applicationController = require('../../lib/controllers/ApplicationController.js'),
-    Application = require('../../lib/models/Application.js');
+    Application = require('../../lib/models/Application.js'),
+    moment = require('moment');
 
 describe('ApplicationController', function () {
     before(function (done) {
@@ -579,8 +580,8 @@ describe('ApplicationController', function () {
             toAdd.Phone = "555-555-5555";
 
             var segment = new Object();
-            segment.StartDate = new Date('1/15/2020');
-            segment.EndDate = new Date('1/22/2020');
+            segment.StartDate = new moment(new Date('1/15/2020')).utc().hour(0);
+            segment.EndDate = new moment(new Date('1/22/2020')).utc().hour(0);
             segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
             applicationController.add(toAdd, function (err, doc) {
@@ -605,8 +606,8 @@ describe('ApplicationController', function () {
             toAdd.Phone = "555-555-5555";
 
             var segment = new Object();
-            segment.StartDate = new Date('1/15/2020');
-            segment.EndDate = new Date('1/22/2020');
+            segment.StartDate = new moment(new Date('1/15/2020')).utc().hour(0);
+            segment.EndDate = new moment(new Date('1/22/2020')).utc().hour(0);
             segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
             applicationController.add(toAdd, function (err, doc) {
@@ -641,14 +642,14 @@ describe('ApplicationController', function () {
             });
         });
 
-        it('Should remove a staff member from an application ', function (done) {
+        it('Should remove a segment from an application ', function (done) {
             var toAdd = new Object();
             toAdd.Name = "test";
             toAdd.Phone = "555-555-5555";
 
             var segment = new Object();
-            segment.StartDate = new Date('1/15/2020');
-            segment.EndDate = new Date('1/22/2020');
+            segment.StartDate = new moment(new Date('1/15/2020')).utc().hour(0);
+            segment.EndDate = new moment(new Date('1/22/2020')).utc().hour(0);
             segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
             applicationController.add(toAdd, function (err, doc) {
@@ -678,8 +679,8 @@ describe('ApplicationController', function () {
             toAdd.Phone = "555-555-5555";
 
             var segment = new Object();
-            segment.StartDate = new Date('1/15/2020');
-            segment.EndDate = new Date('1/22/2020');
+            segment.StartDate = new moment(new Date('1/15/2020')).utc().hour(0);
+            segment.EndDate = new moment(new Date('1/22/2020')).utc().hour(0);
             segment.PrimaryStaff = new mongoose.Types.ObjectId('540e2b0caddc924830899aa7');
 
             applicationController.add(toAdd, function (err, doc) {
