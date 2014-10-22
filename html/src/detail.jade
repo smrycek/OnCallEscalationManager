@@ -52,10 +52,14 @@ div
                                         i.fa.fa-user
                                     select.form-control(name="appFallback", ng-model="form.appFallback", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
                                         option(style="display:none", value="") Select a Fallback Staffer
-                        div.row.tiny-top-margin
+                        div.row(style="margin-top:10px;")
                             div.col-xs-12
-                                button.btn.btn-success(type="submit") Save
-                                button.btn.btn-danger.tiny-left-space(type="button", ng-click="$parent.isEditingApp = !$parent.isEditingApp") Cancel
+                                button.btn.btn-success(type="submit")
+                                    i.fa.fa-check
+                                    span.small-left-gap Save
+                                button.btn.btn-danger.tiny-left-space(type="button", ng-click="$parent.isEditingApp = !$parent.isEditingApp")
+                                    i.fa.fa-times
+                                    span.small-left-gap Cancel
     hr
     div.row
         div.col-xs-12
@@ -138,7 +142,7 @@ div
                     ul.list-group.squareCorners.segmentList
                         li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments")
                             div.row(ng-if="segment.PrimaryStaff == undefined")
-                                form.form(name="addsegment", ng-controller="segmentCtrl", ng-submit="form.addSegment()")
+                                form.form(name="addsegment", ng-controller="segmentCtrl", ng-submit="addSegment()")
                                     div.col-xs-12.emptySegment(ng-show="!isSegmentActive")
                                         i.fa.fa-plus-square.largeIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="right", tooltip="Add Segment In Gap")
                                     div.col-xs-12(ng-show="isSegmentActive")
@@ -176,14 +180,14 @@ div
                                                         i.fa.fa-user.iconImage
                                                         span Primary:
                                                     div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
-                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                                        select.form-control(name="PrimaryStaff", ng-model="form.PrimaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
                                                             option(style="display:none", value="") Select a Primary Staffer
                                                 div.row
                                                     div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
                                                         i.fa.fa-user.iconImage
                                                         span Secondary:
                                                     div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
-                                                        select.form-control(name="SecondaryStaffer", ng-model="form.SecondaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
+                                                        select.form-control(name="SecondaryStaff", ng-model="form.SecondaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
                                                             option(style="display:none", value="") Select a Secondary Staffer
                                         div.row
                                             div.col-xs-12.col-md-6.BWGray.hoverBluePointer
@@ -191,11 +195,11 @@ div
                                                     i.fa.fa-check
                                                     span.small-left-gap Submit
                                             div.col-xs-12.col-md-6.BWGray.hoverBluePointer
-                                                button.segCancel(type="button", ng-click="form.StartDate = null; form.EndDate = null; form.SecondaryStaffer = null; form.PrimaryStaffer = null; form.empty(); isSegmentActive = !isSegmentActive")
+                                                button.segCancel(type="button", ng-click="form.StartDate = null; form.EndDate = null; form.SecondaryStaff = null; form.PrimaryStaff = null; form.empty(); isSegmentActive = !isSegmentActive")
                                                     i.fa.fa-times
                                                     span.small-left-gap Cancel
                             div.row(ng-if="segment.PrimaryStaff")
-                                form.form(name="editRemoveSegment", ng-controller="segmentCtrl", ng-submit="form.editSegment()")
+                                form.form(name="editRemoveSegment", ng-controller="segmentCtrl", ng-submit="editSegment()")
                                     div.col-xs-12
                                         div.row
                                             div.col-xs-12.col-md-2.pull-right
@@ -209,9 +213,9 @@ div
                                                                     button.btn.btn-danger(ng-click="cancel()") No
                                                 i.fa.fa-pencil.pull-right.mediumIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="left", tooltip="Edit Segment")
                                             div.col-xs-12.col-md-2(style="height:100%;")
-                                                div(ng-show="!isSegmentActive")
+                                                div(ng-show="!isSegmentActive", ng-init="form.StartDate = $parent.segment.StartDateString")
                                                     span Start Date: {{segment.StartDateString}}
-                                                div(ng-show="!isSegmentActive")
+                                                div(ng-show="!isSegmentActive", ng-init="form.EndDate = $parent.segment.EndDateString")
                                                     span End Date: {{segment.EndDateString}}
                                                 div.row(ng-show="isSegmentActive", style="margin-bottom:15px;")
                                                     div.col-xs-12.col-md-4
@@ -235,23 +239,22 @@ div
                                                         i.fa.fa-user.iconImage
                                                         span Primary:
                                                     div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
-                                                        select.form-control(name="PrimaryStaffer", ng-model="form.PrimaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
+                                                        select.form-control(name="PrimaryStaff", ng-model="form.PrimaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
                                                             option(style="display:none", value="") Select a Primary Staffer
                                                 div.row(ng-show="isSegmentActive")
                                                     div.col-xs-12.col-md-5.col-lg-3(style="padding-right:0px; padding-left:30px;")
                                                         i.fa.fa-user.iconImage
                                                         span Secondary:
                                                     div.col-xs-12.col-md-7.col-lg-8(style="padding-left:0px;")
-                                                        select.form-control(name="SecondaryStaffer", ng-model="form.SecondaryStaffer", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
+                                                        select.form-control(name="SecondaryStaff", ng-model="form.SecondaryStaff", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id")
                                                             option(style="display:none", value="") Select a Secondary Staffer
                                             div.col-md-4.col-xs-12
                                         div.row(ng-show="isSegmentActive", style="margin-top: 10px;")
-                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
-                                                button.segSubmit(type="submit")
+                                            div.col-xs-12
+                                                button.btn.btn-success(type="submit")
                                                     i.fa.fa-check
                                                     span.small-left-gap Submit
-                                            div.col-xs-12.col-md-6.BWGray.hoverBluePointer
-                                                button.segCancel(type="button", ng-click="form.StartDate = null; form.EndDate = null; form.SecondaryStaffer = null; form.PrimaryStaffer = null; form.empty(); isSegmentActive = !isSegmentActive")
+                                                button.btn.btn-danger.tiny-left-space(type="button", ng-click="form.SecondaryStaff = segment.SecondaryStaff; form.PrimaryStaff = segment.PrimaryStaff; isSegmentActive = !isSegmentActive")
                                                     i.fa.fa-times
                                                     span.small-left-gap Cancel
     div.clearfix

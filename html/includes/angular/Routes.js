@@ -9,7 +9,7 @@ OCEM.controller('removeModalCtrl', ['$scope', '$modalInstance', removeModalCtrl]
 OCEM.controller('editAppCtrl', ['$scope', '$http', '$route', '$routeParams', editAppCtrl]);
 OCEM.controller('editStaffCtrl', ['$scope', '$http', '$route', '$routeParams', editStaffCtrl]);
 OCEM.controller('removeStaffCtrl', ['$scope', '$http', '$route', '$routeParams', removeStaffCtrl]);
-OCEM.controller('segmentCtrl', ['$scope', '$http', '$modal', '$route', '$routeParams', segmentCtrl]);
+OCEM.controller('segmentCtrl', ['$scope', '$http', '$modal', '$route', '$routeParams', '$location', segmentCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -106,7 +106,18 @@ function detailCtrl($scope, $http, $routeParams) {
                 emptySegment.EndDateString = emptySegment.EndDate.format("MM/DD/YYYY");
                 segments.push(emptySegment);
             }
+        } else {
+            //Turn the dates in to moment objects
+            appl.Segments[0].StartDate = moment(appl.Segments[0].StartDate).utc();
+            appl.Segments[0].EndDate = moment(appl.Segments[0].EndDate).utc();
+            //Set hours back to 0
+            appl.Segments[0].StartDate.hours(0);
+            appl.Segments[0].EndDate.hours(0);
+            appl.Segments[0].StartDateString = appl.Segments[0].StartDate.format("MM/DD/YYYY");
+            appl.Segments[0].EndDateString = appl.Segments[0].EndDate.format("MM/DD/YYYY");
+            segments.push(appl.Segments[0]);
         }
+
         var ped;
         // If there are more segments lets navigate through them and add empty segments if needed.
         if(appl.Segments.length > 0){
@@ -324,7 +335,7 @@ function removeStaffCtrl($scope, $http, $route, $routeParams){
 
 }
 
-function segmentCtrl($scope, $http, $modal, $route, $routeParams){
+function segmentCtrl($scope, $http, $modal, $route, $routeParams, $location){
     $scope.isSegmentActive = false;
     $scope.form = {};
 
@@ -358,23 +369,47 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams){
         });
 
         modalInstance.result.then(function () {
-            alert("segment deleted!");
-            //var responsePromise = $http.delete("/api/applications/" + $routeParams.appName, {});
-            //responsePromise.success(function (data, status) {
-            //    $location.path("/");
-            //});
-            //responsePromise.error(function (data, status) {
-            //    alert(data.Message);
-            //});
+            var sd = $scope.form.StartDate.split('/').join('-');
+            var responsePromise = $http.delete("/api/applications/" + $routeParams.appName + "/segments/" + sd, {});
+            responsePromise.success(function (data, status) {
+                //alert(data.results.StartDate);
+                $route.reload();
+            });
+            responsePromise.error(function (data, status) {
+                alert(data);
+            });
         });
     };
 
     $scope.addSegment = function () {
-
+        var dataObject = {
+            StartDate: $scope.form.StartDate,
+            EndDate: $scope.form.EndDate,
+            PrimaryStaff: $scope.form.PrimaryStaff.Primary,
+            SecondaryStaff: $scope.form.SecondaryStaff.Primary
+        };
+        var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/segments/", dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
     };
 
     $scope.editSegment = function () {
-
+        var dataObject = {
+            PrimaryStaff: $scope.form.PrimaryStaff.Primary,
+            SecondaryStaff: $scope.form.SecondaryStaff.Primary
+        };
+        var sd = $scope.form.StartDate.split('/').join('-');
+        var responsePromise = $http.put("/api/applications/" + $routeParams.appName + "/segments/" + sd, dataObject, {});
+        responsePromise.success(function (data, status) {
+            $route.reload();
+        });
+        responsePromise.error(function (data, status) {
+            alert(data.Message);
+        });
     };
 
     $scope.getStaffString = function(staff) {
