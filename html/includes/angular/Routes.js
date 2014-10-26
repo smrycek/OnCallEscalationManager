@@ -220,11 +220,12 @@ function newStaffCtrl($scope, $http, $route, $routeParams){
             Name: $scope.form.staffName,
             Phone: $scope.form.staffPrimary
         };
-        var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/staff", dataObject, {});
+        var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/staff/", dataObject, {});
         responsePromise.success(function (data, status) {
             $route.reload();
         });
         responsePromise.error(function (data, status) {
+            alert(data);
             alert(data.Message);
         });
     };
