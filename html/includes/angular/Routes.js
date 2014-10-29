@@ -386,9 +386,12 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams, $location){
         var dataObject = {
             StartDate: $scope.form.StartDate,
             EndDate: $scope.form.EndDate,
-            PrimaryStaff: $scope.form.PrimaryStaff.Primary,
-            SecondaryStaff: $scope.form.SecondaryStaff.Primary
+            PrimaryStaff: $scope.form.PrimaryStaff.Primary
         };
+        if ($scope.form.SecondaryStaff) {
+            dataObject.SecondaryStaff = $scope.form.SecondaryStaff.Primary;
+        }
+
         var responsePromise = $http.post("/api/applications/" + $routeParams.appName + "/segments/", dataObject, {});
         responsePromise.success(function (data, status) {
             $route.reload();
@@ -400,9 +403,11 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams, $location){
 
     $scope.editSegment = function () {
         var dataObject = {
-            PrimaryStaff: $scope.form.PrimaryStaff.Primary,
-            SecondaryStaff: $scope.form.SecondaryStaff.Primary
+            PrimaryStaff: $scope.form.PrimaryStaff.Primary
         };
+        if ($scope.form.SecondaryStaff) {
+            dataObject.SecondaryStaff = $scope.form.SecondaryStaff.Primary;
+        }
         var sd = $scope.form.StartDate.split('/').join('-');
         var responsePromise = $http.put("/api/applications/" + $routeParams.appName + "/segments/" + sd, dataObject, {});
         responsePromise.success(function (data, status) {
