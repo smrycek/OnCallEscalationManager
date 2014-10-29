@@ -171,3 +171,7 @@
     width: 100%;
     padding: 0px;
 }
+
+.evenSegment {
+    background-color: #f7f7f7;
+}
