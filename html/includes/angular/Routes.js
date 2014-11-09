@@ -10,6 +10,7 @@ OCEM.controller('editAppCtrl', ['$scope', '$http', '$route', '$routeParams', edi
 OCEM.controller('editStaffCtrl', ['$scope', '$http', '$route', '$routeParams', editStaffCtrl]);
 OCEM.controller('removeStaffCtrl', ['$scope', '$http', '$route', '$routeParams', removeStaffCtrl]);
 OCEM.controller('segmentCtrl', ['$scope', '$http', '$modal', '$route', '$routeParams', '$location', segmentCtrl]);
+OCEM.controller('failureCtlr', ['$scope','$http', failureCtrl]);
 
 
 OCEM.config(['$routeProvider', '$locationProvider',
@@ -17,18 +18,42 @@ OCEM.config(['$routeProvider', '$locationProvider',
         $locationProvider.html5Mode(true);
         $routeProvider
         .when('/', {
-            templateUrl: '/partials/Index.jade',
+            templateUrl: '/partials/Index',
             controller: 'indexCtlr'
         })
         .when('/Applications/:appName', {
-            templateUrl: '/partials/detail.jade',
+            templateUrl: '/partials/detail',
             controller: 'detailCtlr'
+        })
+        .when('/failure', {
+            templateUrl: '/partials/failure',
+            controller: 'failureCtlr'
         })
         .otherwise({
             redirectTo: '/'
         });
   }]);
 
+OCEM.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push(function() {
+        return {
+            request: function(request) {
+                if (request.method === 'GET') {
+                    if (request.url.indexOf('.') === -1) {
+                        var sep = request.url.indexOf('?') === -1 ? '?' : '&';
+                        request.url = request.url + sep + 'cacheBust=' + new Date().getTime();
+                    }
+                }
+                return request;
+            }
+        };
+    });
+}])
+
+
+function failureCtrl($scope, $http) {
+    //Nothing here yet.
+}
 
 function indexCtrl($scope, $http) {
     $scope.colorCount = 5;

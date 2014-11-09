@@ -49,7 +49,8 @@ html(lang="en")
                 //-- end .navbar-header --
 
                 //Not using navbar links for now
-                    ul.nav.navbar-top-links.navbar-right
+                ul.nav.navbar-top-links.navbar-right
+                    //Not using these ones
                         li.dropdown
                             a.dropdown-toggle(data-toggle="dropdown" href="#")
                                 i.fa.fa-envelope.fa-fw 
@@ -182,27 +183,20 @@ html(lang="en")
                                         i.fa.fa-angle-right
                             //-- end .dropdown-alerts --
                         //-- end .dropdown --
-                        li.dropdown
-                            a.dropdown-toggle(data-toggle="dropdown", href="#")
-                                i.fa.fa-user.fa-fw
-                                i.fa.fa-caret-down
-                            ul.dropdown-menu.dropdown-user
-                                li
-                                    a(href="#")
-                                        i.fa.fa-user.fa-fw
-                                        |  User Profile
-                                li
-                                    a(href="#")
-                                        i.fa.fa-gear.fa-fw
-                                        |  Settings
-                                li.divider
-                                li
-                                    a(href="/login/")
-                                        i.fa.fa-sign-out.fa-fw
-                                        |  Logout
-                            //-- end .dropdown-user --
-                        //-- end .dropdown --
-                    //-- end .navbar-top-links --
+                    li.dropdown
+                        a.dropdown-toggle(data-toggle="dropdown", href="#")
+                            i.fa.fa-user.fa-fw
+                            if user
+                                span #{user._json.name} [#{user._json.email}] 
+                            i.fa.fa-caret-down
+                        ul.dropdown-menu.dropdown-user
+                            li
+                                a(href="/logout/" target="_self")
+                                    i.fa.fa-sign-out.fa-fw
+                                    |  Logout
+                        //-- end .dropdown-user --
+                    //-- end .dropdown --s
+                //-- end .navbar-top-links --
 
             div#page-wrapper
                 ng-view

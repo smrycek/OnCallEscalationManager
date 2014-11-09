@@ -26,4 +26,9 @@ module.exports = function (app) {
     app.delete('/api/applications/:appName/segments/:startDate', segmentHandler.handleDelete);
     app.put('/api/applications/:appName/segments/:startDate', segmentHandler.handleUpdate);
 
+    function ensureAuthenticated(req, res, next) {
+        if (req.isAuthenticated()) { return next(); }
+        res.redirect('/login')
+    }
+
 };

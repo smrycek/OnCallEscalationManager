@@ -38,7 +38,9 @@
     "q": "1.0.1",
     "ejs": "1.0.0",
     "supertest": "0.14.0",
-    "moment": "2.8.3"
+    "moment": "2.8.3",
+    "passport-google-oauth": "0.1.5",
+    "passport": "0.2.1"
   },
   "noAnalyze": true,
   "license": "Apache",
