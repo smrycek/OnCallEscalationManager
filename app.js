@@ -29,6 +29,7 @@ passport.deserializeUser(function(obj, done) {
 // credentials (in this case, an OpenID identifier and profile), and invoke a
 // callback with a user object.
 passport.use(new GoogleStrategy({
+    prompt: 'select_account',
     clientID: nconf.get("Google:ClientID"),
     clientSecret: nconf.get("Google:ClientSecret"),
     callbackURL: nconf.get("host:headURL") + "/auth/google/callback"
@@ -41,7 +42,7 @@ passport.use(new GoogleStrategy({
             if (profile._json.hd == 'bandwidth.com') {
                 return done(null, profile);
             } else {
-                return done(null, false);
+                return done(null, null);
             }
         });
     }

@@ -30,8 +30,10 @@ module.exports = function (app) {
 
     app.get('/logout', function (req, res) {
         req.session.destroy(function (err) {
+            res.clearCookie('connect.sid');
+            res.clearCookie('SESSION-GUID');
             console.log('logged out');
-            res.redirect('/'); //Inside a callback… bulletproof!
+            res.redirect('/');
         });
     });
 
