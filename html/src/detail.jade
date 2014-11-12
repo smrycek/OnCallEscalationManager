@@ -8,7 +8,7 @@ div
     div.row
         div.col-xs-12
             div.panel.panel-default
-                div.panel-heading Application Details
+                div.panel-heading Escalation Group Details
                     div.pull-right(ng-controller="removeAppCtrl")
                         i.fa.fa-times.BWGray.mediumIcon(style="margin-top:-6px;", ng-click="open()", tooltip-placement="left", tooltip="Delete Application")
                             script(type="text/ng-template", id="removeAppModal.jade")
@@ -21,7 +21,7 @@ div
                 div.panel-body(ng-show="!isEditingApp")
                     div.row
                         div.col-xs-12.medium-small.medium-line
-                            i.fa.fa-phone.fa-2x 
+                            i.fa.fa-phone.fa-2x Esclation Group Phone Number
                             span.left-gap {{app.Phone}}
                     div.row
                         div(ng-show="app.Fallback.Name")
@@ -137,7 +137,7 @@ div
     div.row
         div.col-xs-12
             div.panel.panel-default
-                div.panel-heading On Call Segments
+                div.panel-heading On Call Schedule
                 div
                     ul.list-group.squareCorners.segmentList
                         li.list-group-item.segmentItem.squareCorners(ng-repeat="segment in app.Segments", ng-class-odd="", ng-class-even="'evenSegment'")
