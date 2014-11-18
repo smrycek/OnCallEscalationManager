@@ -202,6 +202,15 @@ function detailCtrl($scope, $http, $routeParams) {
         }
         //finish up by setting the Segments to equal the new fully filled list of segments.
         $scope.app.Segments = segments;
+
+        findPrimary($scope.app.Segments, function(primary) {
+            $scope.primary = primary;
+        });
+        findSecondary($scope.app.Segments, function(secondary) {
+            $scope.secondary = secondary;
+        });
+
+        console.log($scope.primary);
     })
     .error(function(data, status) {
         $scope.app = data.results || "Request failed";
@@ -292,8 +301,8 @@ function editAppCtrl($scope, $http, $route, $routeParams){
     $scope.form.appPhone ="";
     $scope.form.appFallback ="";
 
-    $http({method: 'GET', url: '/api/applications/' + $routeParams.appName}).
-        success(function(data, status) {
+    $http({method: 'GET', url: '/api/applications/' + $routeParams.appName})
+    .success(function(data, status) {
         $scope.status = status;
         $scope.app = data.results;
 
@@ -447,3 +456,48 @@ function segmentCtrl($scope, $http, $modal, $route, $routeParams, $location){
         return staff.Name + " - " + staff.Primary;
     }
 }
+
+function currentSegment(segments, callback) {
+    var today = new moment().utc().hour(0).minute(0).second(0).millisecond(0);
+    var foundSegment = null;
+    var err;
+    segments.forEach(function (segment) {
+        var currStartDate = new moment(segment.StartDate).utc().hour(0).minute(0).second(0).millisecond(0);
+        var currEndDate = new moment(segment.EndDate).utc().hour(0).minute(0).second(0).millisecond(0);
+        console.log("Start Date: " + currStartDate + " - End Date: " + currEndDate + " - Today: " + today);
+        console.log(currStartDate.isBefore(today));
+        console.log(currEndDate.isAfter(today));
+        // Is it between the start and end date of the segment or is it the start or end date?
+        if ((currStartDate.isBefore(today) && currEndDate.isAfter(today)) || (currStartDate.isSame(today) || currEndDate.isSame(today))) {
+            foundSegment = segment;
+            console.log("foundSegment set");
+        }
+    });
+    if (!foundSegment) {
+        console.log(foundSegment);
+        err = new Error("No current segment found.");
+    }
+    callback(err, foundSegment);
+
+};
+
+function findSecondary(segments, callback) {
+    currentSegment(segments, function (err, doc) {
+        if (doc){
+            callback(doc.SecondaryStaff);
+        } else {
+            callback(null);
+        }
+    });
+};
+
+
+function findPrimary(segments, callback) {
+    currentSegment(segments, function (err, doc) {
+        if (doc){
+            callback(doc.PrimaryStaff);
+        } else {
+            callback(null);
+        }
+    });
+};

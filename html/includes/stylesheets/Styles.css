@@ -13,6 +13,10 @@
     src: url("/fonts/AvenirLTStd-Light.otf") format("opentype");
 }
 
+.block {
+    display: block;
+}
+
 .iconImage {
     margin-right:  15px;
 }
