@@ -40,7 +40,8 @@ div
                             i.fa.fa-users.fa-5x
                         div.col-xs-6.col-sm-7.big-left-gap
                             div.medium {{app.Name}}
-                            div.medium-small {{app.Phone}}
+                            a(style="display:block; color:white; text-decoration:none;", href="tel:{{app.Phone}}")
+                                div.medium-small {{app.Phone}}
                         div.col-xs-4.text-right(ng-if="app.curSeg")
                             div {{app.curSeg.PrimaryStaff.Name}} - Primary
                             div(ng-if="app.curSeg.SecondaryStaff") {{app.curSeg.SecondaryStaff.Name}} - Secondary

@@ -16,8 +16,9 @@ div
                 div.panel-body(ng-show="!isEditingApp")
                     div.row
                         div.col-xs-12.col-lg-6.medium-small.medium-line
-                            i.fa.fa-phone.fa-2x 
-                            span.left-gap Bridge Number: {{app.Phone}}
+                            a(style="display:block; color:#333333; text-decoration:none;", href="tel:{{app.Phone}}")
+                                i.fa.fa-phone.fa-2x
+                                span.left-gap Bridge Number: {{app.Phone}}
                         div.col-xs-12.col-lg-6.medium-small.medium-line.block(ng-show="app.Fallback.Name")
                             i.fa.fa-user.fa-2x
                             span.left-gap Permanent Fallback Staffer: {{app.Fallback.Name}}
