@@ -32,7 +32,13 @@ passport.use(new GoogleStrategy({
     prompt: 'select_account',
     clientID: nconf.get("Google:ClientID"),
     clientSecret: nconf.get("Google:ClientSecret"),
-    callbackURL: /*nconf.get("host:headURL") +*/ "http://localhost:3000/auth/google/callback"
+    callbackURL: nconf.get("host:headURL") + "/auth/google/callback"
+    //callbackURL: "http://localhost:3000/auth/google/callback"
+    // ************************************************
+    //  Comment out one of the following above.
+    //  When pushing make sure nconf.get("host:headURL") + "/auth/google/callback"
+    //  When running locally use "http://localhost:3000/auth/google/callback"
+    // ************************************************
 },
     function (accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...

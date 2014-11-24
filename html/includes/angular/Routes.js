@@ -59,14 +59,24 @@ function indexCtrl($scope, $http) {
     $scope.colorCount = 5;
     $scope.method = 'GET';
     $scope.url = '/api/applications/';
-
     $scope.isCollapsed = true;
     $scope.count = 0;
+    $scope.curSegBool = false;
+    var date = moment();
+    var apps;
 
     $http({method: $scope.method, url: $scope.url}).
         success(function(data, status) {
         $scope.status = status;
         $scope.apps = data.results;
+        apps = data.results;
+        apps.forEach(function(app){
+            currentSegment(app.Segments, function(err, foundSegment){
+                if(foundSegment){
+                    app.curSeg = foundSegment;
+                }
+            });
+        });
     })
     .error(function(data, status) {
         $scope.apps = data.results || "Request failed";
@@ -464,17 +474,12 @@ function currentSegment(segments, callback) {
     segments.forEach(function (segment) {
         var currStartDate = new moment(segment.StartDate).utc().hour(0).minute(0).second(0).millisecond(0);
         var currEndDate = new moment(segment.EndDate).utc().hour(0).minute(0).second(0).millisecond(0);
-        console.log("Start Date: " + currStartDate + " - End Date: " + currEndDate + " - Today: " + today);
-        console.log(currStartDate.isBefore(today));
-        console.log(currEndDate.isAfter(today));
         // Is it between the start and end date of the segment or is it the start or end date?
         if ((currStartDate.isBefore(today) && currEndDate.isAfter(today)) || (currStartDate.isSame(today) || currEndDate.isSame(today))) {
             foundSegment = segment;
-            console.log("foundSegment set");
         }
     });
     if (!foundSegment) {
-        console.log(foundSegment);
         err = new Error("No current segment found.");
     }
     callback(err, foundSegment);

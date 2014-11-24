@@ -38,13 +38,25 @@ div
                     div.row
                         div.col-xs-2.col-sm-1
                             i.fa.fa-users.fa-5x
-                        div.col-xs-7.col-sm-8.big-left-gap
+                        div.col-xs-6.col-sm-7.big-left-gap
                             div.medium {{app.Name}}
-                            div.medium-small {{app.Phone}}
-                        div.col-xs-3.text-right
-                            div.huge {{app.Staff.length}}
-                            div(ng-if="app.Staff.length > 1 || app.Staff.length == 0") Staff Members
-                            div(ng-if="app.Staff.length == 1") Staff Member
+                            a(style="display:block; color:white; text-decoration:none;", href="tel:{{app.Phone}}")
+                                div.medium-small {{app.Phone}}
+                        div.col-xs-4.text-right(ng-if="app.curSeg")
+                            div {{app.curSeg.PrimaryStaff.Name}} - Primary
+                            div(ng-if="app.curSeg.SecondaryStaff") {{app.curSeg.SecondaryStaff.Name}} - Secondary
+                            div(ng-if="!app.curSeg.SecondaryStaff") No Scheduled Secondary
+                            div(ng-if="app.Fallback") {{app.Fallback.Name}} - Fallback
+                            div(ng-if="!app.Fallback") No Scheduled Fallback
+                        div.col-xs-4.text-right(ng-if="!app.curSeg")
+                            div No Scheduled Primary
+                            div No Scheduled Secondary
+                            div(ng-if="app.Fallback") {{app.Fallback.Name}} - Fallback
+                            div(ng-if="!app.Fallback") No Scheduled Fallback
+                        //div.col-xs-4.text-right
+                            //div.huge {{app.Staff.length}}
+                            //div(ng-if="app.Staff.length > 1 || app.Staff.length == 0") Staff Members
+                            //div(ng-if="app.Staff.length == 1") Staff Member
                 a(href="/Applications/{{app.Name}}")
                     div.panel-footer
                         span.pull-left View Details
