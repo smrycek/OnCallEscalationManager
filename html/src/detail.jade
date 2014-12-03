@@ -5,10 +5,10 @@ div
             div.panel.panel-default
                 div.panel-heading {{app.Name}}'s Details
                     div.pull-right(ng-controller="removeAppCtrl")
-                        i.fa.fa-times.BWGray.mediumIcon(style="margin-top:-6px;", ng-click="open()", tooltip-placement="left", tooltip="Delete Application")
+                        i.fa.fa-times.BWGray.mediumIcon(style="margin-top:-6px;", ng-click="open()", tooltip-placement="left", tooltip="Delete Escalation Group")
                             script(type="text/ng-template", id="removeAppModal.jade")
                                 div.modal-header
-                                    h3.modal-title Do you really want to delete this application?
+                                    h3.modal-title Do you really want to delete this Escalation Group?
                                 div.modal-footer
                                     button.btn.btn-success(ng-click="ok()") Yes
                                     button.btn.btn-danger(ng-click="cancel()") No
@@ -43,17 +43,21 @@ div
                     div.panel-body(ng-show="isEditingApp")
                         div.row
                             div.col-xs-12.col-sm-6.col-lg-3.medium-small
+                                span Bridge Number:
                                 div.input-group
                                     div.input-group-addon
                                         i.fa.fa-phone
                                     input.form-control(type="text", name="appPhone", ui-mask="(999) 999-9999",tooltip-placement="right" tooltip="Escalation Bridge Number" ng-minlength="10" ng-model="form.appPhone", placeholder="(xxx) xxx-xxxx", required)
+                        br
                         div.row.tiny-top-margin
                             div.col-xs-12.col-sm-6.col-lg-3.medium-small
+                                span Permanent Fallback Staffer:
                                 div.input-group
                                     div.input-group-addon
                                         i.fa.fa-user
                                     select.form-control(name="appFallback", ng-model="form.appFallback", ng-options="getStaffString(staff) for staff in app.Staff track by staff._id", required)
                                         option(style="display:none", value="") Select a Fallback Staffer
+                        br
                         div.row(style="margin-top:10px;")
                             div.col-xs-12
                                 button.btn.btn-success(type="submit")
@@ -146,7 +150,7 @@ div
                             div.row(ng-if="segment.PrimaryStaff == undefined")
                                 form.form(name="addsegment", ng-controller="segmentCtrl", ng-submit="addSegment()")
                                     div.col-xs-12.emptySegment(ng-show="!isSegmentActive")
-                                        i.fa.fa-plus-square.largeIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="right", tooltip="Add Segment In Gap")
+                                        i.fa.fa-plus-square.largeIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="right", tooltip="Add On Call Duty")
                                     div.col-xs-12(ng-show="isSegmentActive")
                                         div.row(style="margin-bottom: 10px;")
                                             div.col-xs-12.col-md-2(style="height:100%;")
@@ -205,14 +209,14 @@ div
                                         div.row
                                             div.col-xs-12.col-md-2.pull-right
                                                 div.pull-right
-                                                        i.fa.fa-times.pull-right.mediumIcon.BWGray(ng-click="removeSegment()", tooltip-placement="right", tooltip="Remove Segment")
+                                                        i.fa.fa-times.pull-right.mediumIcon.BWGray(ng-click="removeSegment()", tooltip-placement="right", tooltip="Remove On Call Duty")
                                                             script(type="text/ng-template", id="removeSegmentModal.jade")
                                                                 div.modal-header
-                                                                    h3.modal-title Do you really want to delete this segment?
+                                                                    h3.modal-title Do you really want to delete this on call duty?
                                                                 div.modal-footer
                                                                     button.btn.btn-success(ng-click="ok()") Yes
                                                                     button.btn.btn-danger(ng-click="cancel()") No
-                                                i.fa.fa-pencil.pull-right.mediumIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="left", tooltip="Edit Segment")
+                                                i.fa.fa-pencil.pull-right.mediumIcon.BWGray(ng-click="$parent.isSegmentActive = !$parent.isSegmentActive", tooltip-placement="left", tooltip="Edit On Call Duty")
                                             div.col-xs-12.col-md-2(style="height:100%;")
                                                 div(ng-show="!isSegmentActive", ng-init="form.StartDate = $parent.segment.StartDateString")
                                                     span Start Date: {{segment.StartDateString}}
